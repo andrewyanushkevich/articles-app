@@ -1,6 +1,12 @@
-const router = require('express').Router();
+import express from 'express';
+import articleRouter from './article';
+import articlesRouter from './articles';
 
-router.use('/articles', require('./articles'));
-router.use('/article', require('./article'));
 
-module.exports = router;
+const router = express.Router();
+
+
+router.use('/articles', articlesRouter);
+router.use('/article', articleRouter);
+
+export default router;

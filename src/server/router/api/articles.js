@@ -1,9 +1,13 @@
-const router = require('express').Router();
-const path = require('path');
+import express from 'express';
+import Article from '../../api/mongo';
 
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../public/index.html'));
+const router = express.Router();
+
+router.get('/api/articles/?page=p&itemsPerPage=i', (req, res) => {
+  const { page } = req.params || 1;
+  const { itemsPerPage } = req.params || 5;
+  const list = Article.find({});
+  res.send(list.slice((page - 1) * itemsPerPage, page * itemsPerPage));
 });
 
-
-module.exports = router;
+export default router;

@@ -1,12 +1,11 @@
 import express from 'express';
-
-import { server } from './server/index'
+import server from './server/index';
 
 if (module.hot) {
-  module.hot.accept('./server', function() {
+  module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...');
     try {
-      server = require('./server').default;
+      server = require('./server/index');
     } catch (error) {
       console.error(error);
     }
@@ -14,14 +13,13 @@ if (module.hot) {
   console.info('✅  Server-side HMR Enabled!');
 }
 
-const port = 8081;
+const port = process.env.PORT || 8081;
 
 export default express()
   .use((req, res) => server.handle(req, res))
-  .listen(port, function(err) {
+  .listen(port, (err) => {
     if (err) {
-      console.error(err);
-      return;
+      throw err;
     }
     console.log(`> Started on port ${port}`);
   });

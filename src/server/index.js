@@ -1,25 +1,19 @@
-import App from '../client/App';
-import { Provider } from 'react-redux';
 import React from 'react';
 import express from 'express';
-import qs from 'qs';
 import { renderToString } from 'react-dom/server';
-import store from '../client/store'
+
+import apiRouter from './router/api/index';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
-
 const server = express();
+
+server.use('/', apiRouter);
 
 server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
-      const markup = renderToString(
-        <Provider store={store}>
-          <App />
-        </Provider>
-      );
-
+      const markup = renderToString(<h1>Hello</h1>);
       res.send(`<!doctype html>
     <html lang="">
     <head>
@@ -42,4 +36,4 @@ server
 </html>`);
     });
 
-export { server };
+export default server;
