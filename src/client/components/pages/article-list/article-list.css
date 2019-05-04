@@ -1,0 +1,9 @@
+.article-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-btn {
+    text-align: right;
+    margin: 2vw;
+}
