@@ -1,11 +1,6 @@
 import express from 'express';
 import server from './server/index';
 
-const pathAlias = require('path-alias');
-
-pathAlias.setAlias('server', './src/server');
-pathAlias.exportAliasesForClientSide();
-
 if (module.hot) {
   module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...');
