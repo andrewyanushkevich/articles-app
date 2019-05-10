@@ -7,7 +7,7 @@ import apiRouter from './router/api/index';
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 
-server.use('/', apiRouter);
+server.use('/api', apiRouter);
 
 server
   .disable('x-powered-by')

@@ -13,7 +13,8 @@ const Article = mongoose.model('Article', articleSchema);
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@training-rm1po.mongodb.net/test?retryWrites=true`;
 
 mongoose.connect(uri, { useNewUrlParser: true }, (err) => {
+  if (err) return console.log(err);
   console.log('Connection');
 });
 
-export default Article;
+module.exports = Article;
