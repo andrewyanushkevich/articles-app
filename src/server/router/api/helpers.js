@@ -10,7 +10,7 @@ function buildSuccessResponse(data) {
   return {
     data,
     error: null,
-    status: 'ERROR',
+    status: 'OK',
   };
 }
 
