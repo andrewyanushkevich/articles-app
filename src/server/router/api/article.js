@@ -1,44 +1,26 @@
 import express from 'express';
 import Article from '@server/api/mongo';
-
-const errorRes = {
-  data: null,
-  status: 'ERROR',
-};
-
-const succesRes = {
-  error: null,
-  status: 'OK',
-};
-
-function errorHandler(err, res, req, next) {
-  errorRes.error = 'Something went wrong! Try again later.';
-  res.status(500).send(errorRes);
-}
+import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
 
 const router = express.Router();
 router.use(errorHandler);
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
-  if (id === undefined) {
-    errorRes.error = 'Bad request! Check article id!';
-    res.status(400).send(errorRes);
+  if (typeof id === 'undefined') {
+    res.status(400).send(buildErrorResponse('Article identifier is missed'));
   }
 
   Article.findOne({ _id: id }, (err, article) => {
     if (err) {
-      console.log(err);
       next(err);
     }
 
-    if (article === undefined) {
-      errorRes.error = 'Cannot find article!';
-      res.status(404).send(errorRes);
+    if (typeof article === 'undefined') {
+      res.status(404).send(buildErrorResponse('Article is not find'));
     }
 
-    succesRes.data = article;
-    res.status(200).send(succesRes);
+    res.status(200).send(buildSuccessResponse(article));
   });
 });
 
@@ -50,59 +32,49 @@ router.post('/', (req, res, next) => {
 
   article.save((err, newArticle) => {
     if (err) {
-      console.log(err);
       next(err);
     }
 
-    succesRes.data = newArticle;
-    res.status(200).send(succesRes);
+    res.status(200).send(buildSuccessResponse(newArticle));
   });
 });
 
 router.put('/:id', (req, res, next) => {
   const { id } = req.params;
-  if (id === undefined) {
-    errorRes.error = 'Bad request! Check article id!';
-    res.status(400).send(errorRes);
+  if (typeof id === 'undefined') {
+    res.status(400).send(buildErrorResponse('Article identifier is missed'));
   }
 
   const { title, body } = req.body;
   Article.findByIdAndUpdate(id, { title, body, updated_at: new Date() }, (err, article) => {
     if (err) {
-      console.log(err);
       next(err);
     }
 
-    if (article === undefined) {
-      errorRes.error = 'Bad request! Check article id!';
-      res.status(400).send(errorRes);
+    if (typeof article === 'undefined') {
+      res.status(400).send(buildErrorResponse('Article identifier is missed'));
     }
 
-    succesRes.data = article;
-    res.status(200).send(succesRes);
+    res.status(200).send(buildSuccessResponse(article));
   });
 });
 
 router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
-  if (id === undefined) {
-    errorRes.error = 'Bad request! Check article id!';
-    res.status(400).send(errorRes);
+  if (typeof id === 'undefined') {
+    res.status(400).send(buildErrorResponse('Article identifier is missed'));
   }
 
   Article.findByIdAndDelete(id, (err, article) => {
     if (err) {
-      console.log(err);
       next(err);
     }
 
-    if (article === undefined) {
-      errorRes.error = 'Bad request! Check article id!';
-      res.status(400).send(errorRes);
+    if (typeof article === 'undefined') {
+      res.status(400).send(buildErrorResponse('Article identifier is missed'));
     }
 
-    succesRes.data = article;
-    res.status(200).send(succesRes);
+    res.status(200).send(buildSuccessResponse(article));
   });
 });
 
