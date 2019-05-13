@@ -13,7 +13,7 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
-      const markup = renderToString(<h1>Hello</h1>);
+      const markup = renderToString(<div>Hello</div>);
       res.send(`<!doctype html>
     <html lang="">
     <head>
