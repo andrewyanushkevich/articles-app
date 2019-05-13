@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Button, List, Pagination } from 'antd';
+import { List, Pagination } from 'antd';
 
 import NewsPreview from './NewsPreview';
 import './NewsList.css';
@@ -14,7 +14,7 @@ class NewsList extends Component {
   handlePageChange = (e) => {
       const currentPage = e;
       const { history } = this.props;
-      fetch(`/api/articles/page=${currentPage}&itemsPerPage=5`, {
+      fetch(`/api/articles?page=${currentPage}&itemsPerPage=10`, {
         method: 'GET'
       }).then((res) => {
           if(res.ok) {

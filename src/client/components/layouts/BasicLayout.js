@@ -11,7 +11,9 @@ class BasicLayout extends Component {
     render() {
         return (
             <Page>
+                <header></header>
                 <NewsList />
+                <footer></footer>
             </Page>
         );
     }
