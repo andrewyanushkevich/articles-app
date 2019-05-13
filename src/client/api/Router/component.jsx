@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
-import NewsPage from '@client/components/pages/NewsPage/NewsPage.jsx';
+import NewsPage from '@client/components/pages/NewsPage';
 
 class Router extends Component {
     render() {

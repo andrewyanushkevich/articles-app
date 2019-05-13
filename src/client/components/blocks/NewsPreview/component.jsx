@@ -6,15 +6,16 @@ class NewsPreview extends Component {
 
     render() {
         const { article } = this.props;
-        return (<div>
-                    <div>{article.title}</div>
-                    <div>
-                        {article.body}
-                    </div>
-                    <div>
-                        <Button>View</Button>
-                    </div>
+        return (
+            <div>
+               <div>{article.title}</div>
+                <div>
+                    {article.body}
                 </div>
+                <div>
+                    <Button>View</Button>
+                </div>
+            </div>
         );
     }
 }
