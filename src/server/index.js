@@ -1,6 +1,7 @@
 import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+const bodyParser = require('body-parser');
 
 import apiRouter from './router/api/index';
 
