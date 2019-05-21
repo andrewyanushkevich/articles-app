@@ -1,6 +1,7 @@
 import express from 'express';
 import Article from '@server/api/mongo';
 import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
+
 const bodyParser = require('body-parser');
 
 const router = express.Router();
@@ -28,8 +29,6 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log(req.body);
-  console.log(res.statusCode);
   const { title, body } = req.body;
   const article = new Article({
     title, body, createdAt: new Date(), unpdatedAt: new Date(),

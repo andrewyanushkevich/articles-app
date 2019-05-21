@@ -1,16 +1,15 @@
-import { ARTICLES_REQUEST, ARTICLES_RESPONSE, ARTICLES_RESPONSE_FAIL } from '@client/constants';
+import * as actions from '@client/constants';
 
-const articlesRequest = pageNumber => ({
-  type: ARTICLES_REQUEST,
+export const articlesRequest = pageNumber => ({
+  type: actions.ARTICLES_REQUEST,
   pageNumber,
 });
-const articlesResponse = articles => ({
-  type: ARTICLES_RESPONSE,
+export const articlesResponse = (articles, total) => ({
+  type: actions.ARTICLES_RESPONSE,
   articles,
+  total,
 });
-const articlesResponseFail = error => ({
-  type: ARTICLES_RESPONSE_FAIL,
+export const articlesResponseFail = error => ({
+  type: actions.ARTICLES_RESPONSE_FAIL,
   error,
 });
-
-export { articlesRequest, articlesResponse, articlesResponseFail };

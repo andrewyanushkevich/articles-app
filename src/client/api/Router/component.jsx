@@ -3,14 +3,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 import NewsPage from '@client/components/pages/NewsPage';
+import { NEWS_URL, NEWS_PER_PAGE } from '@client/constants'
 
 class Router extends Component {
     render() {
         return (
         <BrowserRouter>
             <Switch>
-                <Route path='/news' component={NewsPage} />
-                <Redirect from='/' to='/news?skip=10' />
+                <Route path={NEWS_URL} component={NewsPage} />
+                <Redirect from='/' to={`${NEWS_URL}?skip=${NEWS_PER_PAGE}`} />
             </Switch>
         </BrowserRouter>
         );
