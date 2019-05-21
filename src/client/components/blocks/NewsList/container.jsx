@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import { articlesRequest } from '@client/actions';
-import {NEWS_PER_PAGE} from '@client/constants';
 
 import NewsList from './component';
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     articles: state.articles,
     total: state.total,

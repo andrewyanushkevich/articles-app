@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { List, Pagination } from 'antd';
 
 import NewsPreview from '@client/components/blocks/NewsPreview';
-import store from '@client/store';
-import { NEWS_PER_PAGE } from '@client/constants';
 
 class NewsList extends Component {
   

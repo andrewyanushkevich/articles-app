@@ -2,8 +2,6 @@ import express from 'express';
 import Article from '@server/api/mongo';
 import { buildSuccessResponse, errorHandler } from './helpers';
 
-// import NEWS_PER_PAGE from '@client/constants';
-
 const router = express.Router();
 router.use(errorHandler);
 
