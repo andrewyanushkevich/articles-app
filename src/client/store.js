@@ -1,21 +1,26 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 
-import reducer from '@client/reducers';
-import watchGetArticles from '@client/api/sagas/saga';
+import createRootReducer from 'client/reducers';
+import watchGetArticles from 'client/api/sagas/saga';
 
-const initialState = {
-  articles: [],
-};
+const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  reducer,
-  initialState,
-  applyMiddleware(sagaMiddleware, logger),
+  createRootReducer(history),
+  compose(
+    applyMiddleware(
+      routerMiddleware(history),
+      sagaMiddleware,
+      logger,
+    ),
+  ),
 );
 
 sagaMiddleware.run(watchGetArticles);
 
-export default store;
+export { store, history };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { List, Pagination } from 'antd';
 
-import NewsPreview from '@client/components/blocks/NewsPreview';
+import NewsPreview from 'client/components/blocks/NewsPreview';
 
 class NewsList extends Component {
   
@@ -12,7 +12,8 @@ class NewsList extends Component {
   }
 
   render() {
-    const { articles, total, handlePageChange } = this.props;
+    const { articles, total } = this.props.data;
+    const { handlePageChange } = this.props;
     return (
         <div>
             <List 

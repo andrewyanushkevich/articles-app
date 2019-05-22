@@ -3,11 +3,12 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 
 import apiRouter from './router/api/index';
+import { API_URL } from 'client/constants';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 
-server.use('/api', apiRouter);
+server.use(`${API_URL}`, apiRouter);
 
 server
   .disable('x-powered-by')

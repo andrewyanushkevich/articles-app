@@ -1,5 +1,6 @@
 import express from 'express';
-import Article from '@server/api/mongo';
+import Article from 'server/api/mongo';
+import { NEWS_PER_PAGE } from 'client/constants';
 import { buildSuccessResponse, errorHandler } from './helpers';
 
 const router = express.Router();
@@ -7,7 +8,7 @@ router.use(errorHandler);
 
 router.get('/', async (req, res, next) => {
   const page = req.query.page || 1;
-  const itemsPerPage = req.query.itemsPerPage || 10;
+  const itemsPerPage = NEWS_PER_PAGE;
   const total = await Article.estimatedDocumentCount();
 
   Article

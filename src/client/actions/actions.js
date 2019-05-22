@@ -1,4 +1,4 @@
-import * as actions from '@client/constants';
+import * as actions from 'client/constants';
 
 export const articlesRequest = pageNumber => ({
   type: actions.ARTICLES_REQUEST,

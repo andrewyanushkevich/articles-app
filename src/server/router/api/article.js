@@ -1,8 +1,8 @@
 import express from 'express';
-import Article from '@server/api/mongo';
-import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
+import Article from 'server/api/mongo';
+import bodyParser from 'body-parser';
 
-const bodyParser = require('body-parser');
+import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
 
 const router = express.Router();
 router.use(errorHandler);

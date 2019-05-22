@@ -1,6 +1,14 @@
-import { ARTICLES_RESPONSE, ARTICLES_RESPONSE_FAIL } from '@client/constants';
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
-const reducer = (state, action) => {
+import { ARTICLES_RESPONSE, ARTICLES_RESPONSE_FAIL } from 'client/constants';
+
+const initialState = {
+  articles: [],
+  total: 0,
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
   case ARTICLES_RESPONSE:
     return Object.assign({}, state, {
@@ -13,4 +21,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default reducer;
+export default history => combineReducers({
+  router: connectRouter(history),
+  data: reducer,
+});

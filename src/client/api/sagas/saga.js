@@ -1,6 +1,6 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { articlesResponse, articlesResponseFail } from '@client/actions';
-import { ARTICLES_REQUEST, ARTICLES_API_URL } from '@client/constants';
+import { articlesResponse, articlesResponseFail } from 'client/actions';
+import { ARTICLES_REQUEST, ARTICLES_API_URL } from 'client/constants';
 
 function* getArticles(action) {
   const { pageNumber } = action;
