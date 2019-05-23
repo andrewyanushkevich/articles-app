@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { articlesRequest } from 'client/actions';
-import NewsList from './component';
 import {  NEWS_PER_PAGE, NEWS_URL } from 'client/constants';
+import NewsList from './component';
 
 const mapStateToProps = state => ({
   data: state.data,
