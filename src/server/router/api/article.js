@@ -1,9 +1,13 @@
 import express from 'express';
-import Article from '@server/api/mongo';
+import Article from 'server/api/mongo';
+import bodyParser from 'body-parser';
+
 import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
 
 const router = express.Router();
 router.use(errorHandler);
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
@@ -17,7 +21,7 @@ router.get('/:id', (req, res, next) => {
     }
 
     if (typeof article === 'undefined') {
-      res.status(404).send(buildErrorResponse('Article is not find'));
+      res.status(404).send(buildErrorResponse('Article is not found'));
     }
 
     res.status(200).send(buildSuccessResponse(article));
