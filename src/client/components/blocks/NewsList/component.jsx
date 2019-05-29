@@ -18,13 +18,13 @@ class NewsList extends Component {
     return (
         <div>
           <NewsForm />
-            <List 
-                size="large"
-                dataSource={articles}
-                renderItem={(item) => (<List.Item><NewsPreview article={item}/></List.Item>)}
-            />
+          <List 
+              size="large"
+              dataSource={articles}
+              renderItem={(item) => (<List.Item><NewsPreview article={item}/></List.Item>)}
+          />
           <NewsForm />
-            <Pagination total = {total} onChange={handlePageChange}/>
+          <Pagination total = {total} onChange={handlePageChange}/>
         </div>
     );
   }
