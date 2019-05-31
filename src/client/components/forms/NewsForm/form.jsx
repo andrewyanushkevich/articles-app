@@ -1,37 +1,78 @@
 import React, { Component } from 'react';
-import { Input, Form, Modal } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Title, Body, Submit } from './styles';
+import PropTypes from 'prop-types';
+import * as Yup from 'yup';
+
+const SubmitSchema = Yup.object().shape({
+    title: Yup.string()
+      .required('Title is required'),
+    body: Yup.string()
+      .required('Body is required'),
+  });
 
 class ArticleForm extends Component {
+    handleSubmit = (values, {resetForm}) => {
+        const { id } = this.props;
+        let submit;
+        if(typeof id === 'undefined') {
+            submit = this.props.handleAddArticle;
+        } else {
+            submit = this.props.handleEditArticle;
+        }
+        submit(values);
+        resetForm({title: '', body: ''});
+    };
 
     render() {
-        const { form, visible, onCancel, handleSubmit } = this.props;
-        const { getFieldDecorator } = form;
+        const { title, body } = this.props;
         return(
-            <Modal
-            visible={visible}  
-            onCancel={onCancel}
-            onOk={handleSubmit}
-            title="Create Article"
-            okText="Create"
-            >
-                <Form>
-                    <FormItem label="Title" >
-                        {getFieldDecorator('title', {
-                            rules: [{ required: true, message: 'Please input article title' }],
-                        })(<Input/>)}
-                    </FormItem>
-                    <FormItem label="Body">
-                        {getFieldDecorator('body', {
-                            rules: [{ required: true, message: 'Please input article body' }],
-                        })(<Input.TextArea autosize={true} />)}
-                    </FormItem>
-                </Form>
-            </Modal>
-        );
+            <Formik
+            initialValues={{
+                title,
+                body,
+            }}
+            validationSchema={SubmitSchema}
+            onSubmit={this.handleSubmit}
+            render={() => {
+                return (
+                    <Form>
+                        <Title>
+                            <div>
+                                Title:
+                            </div>
+                            <Field component="input" name="title" />
+                            <ErrorMessage name="title">
+                                {errorMessage => <div>{errorMessage}</div>}
+                            </ErrorMessage>
+                        </Title>
+                        <Body>
+                            <div>
+                                Body:
+                            </div>
+                            <Field component="textarea" name="body" />
+                            <ErrorMessage name="body">
+                                {errorMessage => <div>{errorMessage}</div>}
+                            </ErrorMessage>
+                        </Body>
+                        <Submit>
+                            <button type="submit">
+                                Create
+                            </button>
+                        </Submit>
+                    </Form>
+                )
+            }}
+            />
+        )
     }
 }
 
-const WrappedForm = Form.create({name: 'News Form'})(ArticleForm);
+ArticleForm.propTypes = {
+    title: PropTypes.string,
+    body: PropTypes.string,
+    handleAddArticle: PropTypes.func,
+    handleEditArticle: PropTypes.func,
+}
 
-export default WrappedForm;
+export default ArticleForm;

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
+import { Modal, Button } from 'antd';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import WrappedForm from './form';
+import ArticleForm from './form';
+import { NEWS_URL } from 'client/constants';
 
-class NewsForm extends Component {
+class WrappedForm extends Component {
     constructor(props) {
         super(props);
     
@@ -14,46 +16,24 @@ class NewsForm extends Component {
     }
     
     showModal = () => {
+        const { history } = this.props;
         this.setState({
           visible: true
         })
-        const { changeUrl } = this.props;
-        changeUrl();
+        history.push(`${NEWS_URL}/create`);
     }
 
     handleCancel = () => {
+        const { history } = this.props;
         this.setState({
             visible: false
         })
-        const { changeUrlBack } = this.props;
-        changeUrlBack();
+        history.goBack();
     }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const form = this.formRef.props.form;
-        let submit;
-        const { id } = this.props;
-        if(typeof id === 'undefined') {
-            submit = this.props.handleAddArticle;
-        } else {
-            submit = this.props.handleEditArticle;
-        }
-        form.validateFields((err, values) => {
-            if(err) return;
-            submit(values);
-            form.resetFields();
-            this.setState({ visible: false });
-        });
-    };
-
-
-    saveFormRef = formRef => {
-        this.formRef = formRef;
-    };
     
     render() {
         const { visible } = this.state;
+        const { handleAddArticle, handleEditArticle } = this.props;
         const title = this.props.title || '';
         const body = this.props.bosy || '';
         return (
@@ -61,15 +41,35 @@ class NewsForm extends Component {
                 <Button onClick={this.showModal}>
                     Add Article
                 </Button>
-                <WrappedForm 
-                wrappedComponentRef={this.saveFormRef}
-                visible={visible}  
+                <Modal
+                visible={visible}
+                footer={[
+                <Button key="back" onClick={this.handleCancel}>
+                Return
+                </Button>,]}
                 onCancel={this.handleCancel}
-                handleSubmit={this.handleSubmit}
+                title="Create Article"
+                okText="Create"
+                >
+                    <ArticleForm 
+                    onCancel={this.handleCancel}
+                    title={title}
+                    body={body}
+                    handleAddArticle={handleAddArticle}
+                    handleEditArticle={handleEditArticle}
+                    history={history}
                 />
+                </Modal>
             </div>
         );
     }
 }
 
-export default withRouter(NewsForm);
+WrappedForm.propTypes = {
+    title: PropTypes.string,
+    body: PropTypes.string,
+    handleAddArticle: PropTypes.func,
+    handleEditArticle: PropTypes.func,
+}
+
+export default withRouter(WrappedForm);
