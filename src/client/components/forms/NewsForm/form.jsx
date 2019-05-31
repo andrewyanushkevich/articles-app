@@ -25,7 +25,7 @@ class ArticleForm extends Component {
     };
 
     render() {
-        const { title, body } = this.props;
+        const { title, body, formButtonName } = this.props;
         return(
             <Formik
             initialValues={{
@@ -57,7 +57,7 @@ class ArticleForm extends Component {
                         </Body>
                         <Submit>
                             <button type="submit">
-                                Create
+                                {formButtonName}
                             </button>
                         </Submit>
                     </Form>
