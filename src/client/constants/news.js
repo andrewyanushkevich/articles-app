@@ -5,3 +5,4 @@ export const API_URL = '/api';
 export const ARTICLE_URL = '/article';
 export const ARTICLES_URL = '/articles';
 export const ARTICLES_API_URL = `${API_URL}/articles`;
+export const ARTICLE_API_URL = `${API_URL}/article`;

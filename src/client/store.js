@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 
 import createRootReducer from 'client/reducers';
-import watchGetArticles from 'client/api/sagas/saga';
+import rootSaga from 'client/api/sagas/rootSaga';
 
 const history = createBrowserHistory();
 
@@ -21,6 +21,6 @@ const store = createStore(
   ),
 );
 
-sagaMiddleware.run(watchGetArticles);
+sagaMiddleware.run(rootSaga);
 
 export { store, history };

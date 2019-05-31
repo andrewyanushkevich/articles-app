@@ -10,8 +10,8 @@ function* getArticles(action) {
       headers: { 'Content-Type': 'application/json' },
     });
     const jsonResponse = yield response.json();
-    const { articles, total } = jsonResponse.data;
-    yield put(articlesResponse(articles, total));
+    const { articles, total, page } = jsonResponse.data;
+    yield put(articlesResponse(articles, total, page));
   } catch (error) {
     yield put(articlesResponseFail(error));
   }

@@ -7,16 +7,20 @@ const router = express.Router();
 router.use(errorHandler);
 
 router.get('/', async (req, res, next) => {
-  const page = req.query.page || 1;
-  const itemsPerPage = NEWS_PER_PAGE;
+  const page = Number(req.query.page) || 1;
   const total = await Article.estimatedDocumentCount();
-
+  const diff = total - NEWS_PER_PAGE * page;
+  const skip = diff < 0 ? 0 : diff;
+  const itemsPerPage = diff < 0 ? NEWS_PER_PAGE * page - total : NEWS_PER_PAGE;
   Article
-    .find({}, null, { skip: (page - 1) * itemsPerPage, limit: itemsPerPage })
+    .find({}, null)
+    .skip(skip)
+    .limit(itemsPerPage)
     .exec((err, articles) => {
       if (err) {
         next(err);
       }
+      articles.reverse();
       res.status(200).send(JSON.stringify(buildSuccessResponse({ articles, total, page })));
     });
 });

@@ -1,7 +1,7 @@
 import express from 'express';
+import { ARTICLE_URL, ARTICLES_URL } from 'client/constants';
 import articleRouter from './article';
 import articlesRouter from './articles';
-import { ARTICLE_URL, ARTICLES_URL } from 'client/constants';
 
 const router = express.Router();
 
