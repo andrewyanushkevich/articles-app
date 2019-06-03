@@ -1,10 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import {
-  ARTICLES_RESPONSE, ARTICLES_RESPONSE_FAIL, ADD_ARTICLE_RESPONSE,
-  ADD_ARTICLE_RESPONSE_FAIL, NEWS_PER_PAGE,
-} from 'client/constants';
+import * as actions from 'client/constants';
 
 const initialState = {
   articles: [],
@@ -13,25 +10,32 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-  case ARTICLES_RESPONSE:
+  case actions.ARTICLES_RESPONSE:
     return Object.assign({}, state, {
       articles: action.articles,
       total: action.total,
       page: action.page,
     });
-  case ADD_ARTICLE_RESPONSE:
+  case actions.ADD_ARTICLE_RESPONSE:
     if (state.page === 1) {
       return Object.assign({}, state, {
-        articles: [action.article, ...state.articles.slice(0, NEWS_PER_PAGE - 2)],
+        articles: [action.article, ...state.articles.slice(0, actions.NEWS_PER_PAGE - 2)],
         total: state.total + 1,
       });
     }
     return Object.assign({}, state, {
       total: state.total + 1,
     });
-  case ARTICLES_RESPONSE_FAIL:
+  case actions.UPDATE_ARTICLE_RESPONSE:
+    const list = state.articles.map((elem) => {
+      return elem._id === action.article._id ? action.article : elem;
+    });
+    return Object.assign({}, state, {
+      articles: list,
+    });
+  case actions.ARTICLES_RESPONSE_FAIL:
     return action.error;
-  case ADD_ARTICLE_RESPONSE_FAIL:
+  case actions.ADD_ARTICLE_RESPONSE_FAIL:
     return action.error;
   default: return state;
   }

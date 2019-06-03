@@ -13,7 +13,7 @@ const articleSchema = new Schema({
 const Article = mongoose.model('Article', articleSchema);
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@training-rm1po.mongodb.net/test?retryWrites=true`;
 
-mongoose.connect(uri, { useNewUrlParser: true }, (err) => {
+mongoose.connect(uri, { useNewUrlParser: true, useFindAndModify: false }, (err) => {
   if (err) return console.log(err);
   console.log('Connection');
 });

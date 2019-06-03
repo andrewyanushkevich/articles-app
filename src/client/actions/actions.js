@@ -27,3 +27,16 @@ export const addArticleResponseFail = error => ({
   type: actions.ADD_ARTICLE_RESPONSE_FAIL,
   error,
 });
+
+export const updateArticleRequest = article => ({
+  type: actions.UPDATE_ARTICLE_REQUEST,
+  article,
+});
+export const updateArticleResponse = article => ({
+  type: actions.UPDATE_ARTICLE_RESPONSE,
+  article,
+});
+export const updateArticleResponseFail = error => ({
+  type: actions.UPDATE_ARTICLE_RESPONSE_FAIL,
+  error,
+});

@@ -23,7 +23,6 @@ class NewsPreview extends Component {
                 title={article.title}
                 body={article.body}
                 id={article._id}/>
-                />
             </div>
         );
     }

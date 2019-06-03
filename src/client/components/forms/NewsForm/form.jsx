@@ -13,15 +13,21 @@ const SubmitSchema = Yup.object().shape({
 
 class ArticleForm extends Component {
     handleSubmit = (values, {resetForm}) => {
-        const { id } = this.props;
+        const { id, closeForm } = this.props;
         let submit;
         if(typeof id === 'undefined') {
             submit = this.props.handleAddArticle;
         } else {
             submit = this.props.handleEditArticle;
         }
-        submit(values);
+        const article = {
+            title: values.title,
+            body: values.body,
+            id,
+        };
+        submit(article);
         resetForm({title: '', body: ''});
+        closeForm();
     };
 
     render() {

@@ -50,7 +50,7 @@ router.put('/:id', (req, res, next) => {
   }
 
   const { title, body } = req.body;
-  Article.findByIdAndUpdate(id, { title, body, updated_at: new Date() }, (err, article) => {
+  Article.findByIdAndUpdate(id, { title, body, updated_at: new Date() }, { new: true }, (err, article) => {
     if (err) {
       next(err);
     }
@@ -58,7 +58,6 @@ router.put('/:id', (req, res, next) => {
     if (typeof article === 'undefined') {
       res.status(400).send(buildErrorResponse('Article identifier is missed'));
     }
-
     res.status(200).send(buildSuccessResponse(article));
   });
 });

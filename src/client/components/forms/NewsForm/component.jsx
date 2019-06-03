@@ -33,7 +33,7 @@ class WrappedForm extends Component {
     
     render() {
         const { visible } = this.state;
-        const { handleAddArticle, handleEditArticle, modalButtonName, formTitle, formButtonName } = this.props;
+        const { handleAddArticle, handleEditArticle, modalButtonName, formTitle, formButtonName, id } = this.props;
         const title = this.props.title || '';
         const body = this.props.body || '';
         return (
@@ -47,7 +47,6 @@ class WrappedForm extends Component {
                 <Button key="back" onClick={this.handleCancel}>
                 Return
                 </Button>,]}
-                onCancel={this.handleCancel}
                 title={formTitle}
                 >
                     <ArticleForm 
@@ -57,7 +56,9 @@ class WrappedForm extends Component {
                     handleEditArticle={handleEditArticle}
                     history={history}
                     formButtonName={formButtonName}
-                />
+                    id={id}
+                    closeForm={this.handleCancel}
+                    />
                 </Modal>
             </div>
         );
