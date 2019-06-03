@@ -48,6 +48,7 @@ class WrappedForm extends Component {
                 Return
                 </Button>,]}
                 title={formTitle}
+                onCancel={this.handleCancel}
                 >
                     <ArticleForm 
                     title={title}

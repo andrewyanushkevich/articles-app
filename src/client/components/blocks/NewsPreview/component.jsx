@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import NewsForm from 'client/components/forms/NewsForm';
+import DeleteForm from 'client/components/forms/DeleteForm';
 
 class NewsPreview extends Component {
 
@@ -9,7 +10,9 @@ class NewsPreview extends Component {
         const { article, modalButtonName, formTitle, formButtonName } = this.props;
         return (
             <div>
-               <div>{article.title}</div>
+               <div>
+                    {article.title}
+                </div>
                 <div>
                     {article.body}
                 </div>
@@ -23,6 +26,9 @@ class NewsPreview extends Component {
                 title={article.title}
                 body={article.body}
                 id={article._id}/>
+                <DeleteForm 
+                id={article._id}
+                />
             </div>
         );
     }
