@@ -16,11 +16,11 @@ class WrappedForm extends Component {
     }
     
     showModal = () => {
-        const { history } = this.props;
+        const { history, id } = this.props;
         this.setState({
           visible: true
         })
-        history.push(`${NEWS_URL}/create`);
+        typeof id === 'undefined' ? history.push(`${NEWS_URL}/create`) : history.push(`${NEWS_URL}/${id}`);
     }
 
     handleCancel = () => {
@@ -33,13 +33,13 @@ class WrappedForm extends Component {
     
     render() {
         const { visible } = this.state;
-        const { handleAddArticle, handleEditArticle } = this.props;
+        const { handleAddArticle, handleEditArticle, modalButtonName, formTitle, formButtonName, id } = this.props;
         const title = this.props.title || '';
-        const body = this.props.bosy || '';
+        const body = this.props.body || '';
         return (
             <div>
                 <Button onClick={this.showModal}>
-                    Add Article
+                    {modalButtonName}
                 </Button>
                 <Modal
                 visible={visible}
@@ -47,18 +47,18 @@ class WrappedForm extends Component {
                 <Button key="back" onClick={this.handleCancel}>
                 Return
                 </Button>,]}
-                onCancel={this.handleCancel}
-                title="Create Article"
-                okText="Create"
+                title={formTitle}
                 >
                     <ArticleForm 
-                    onCancel={this.handleCancel}
                     title={title}
                     body={body}
                     handleAddArticle={handleAddArticle}
                     handleEditArticle={handleEditArticle}
                     history={history}
-                />
+                    formButtonName={formButtonName}
+                    id={id}
+                    closeForm={this.handleCancel}
+                    />
                 </Modal>
             </div>
         );

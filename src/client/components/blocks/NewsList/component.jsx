@@ -17,11 +17,21 @@ class NewsList extends Component {
     const { handlePageChange } = this.props;
     return (
         <div>
-          <NewsForm />
+          <NewsForm 
+          modalButtonName="Add Article" 
+          formTitle="Create Article" 
+          formButtonName="Create"/>
           <List 
               size="large"
               dataSource={articles}
-              renderItem={(item) => (<List.Item><NewsPreview article={item}/></List.Item>)}
+              renderItem={(item) => (
+              <List.Item>
+                <NewsPreview 
+                article={item}
+                modalButtonName="Edit Article" 
+                formTitle="Edit Article" 
+                formButtonName="Update"/>
+              </List.Item>)}
           />
           <NewsForm />
           <Pagination total = {total} onChange={handlePageChange}/>
