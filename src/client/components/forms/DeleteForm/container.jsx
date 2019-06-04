@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import { addArticleRequest, updateArticleRequest } from 'client/actions';
+import { deleteArticleRequest } from 'client/actions';
 import DeleteForm from './component';
 
 const mapDispatchToProps = dispatch => ({
-  handleDeleteArticle: (id) => {
-    dispatch(addArticleRequest(id));
+  handleDeleteArticle: (id, page) => {
+    dispatch(deleteArticleRequest(id, page));
   },
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { List, Pagination, Button } from 'antd';
+import { List, Pagination } from 'antd';
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
 import NewsForm from 'client/components/forms/NewsForm';
@@ -33,7 +33,11 @@ class NewsList extends Component {
                 formButtonName="Update"/>
               </List.Item>)}
           />
-          <NewsForm />
+          <NewsForm 
+          modalButtonName="Add Article" 
+          formTitle="Create Article" 
+          formButtonName="Create"
+          />
           <Pagination total = {total} onChange={handlePageChange}/>
         </div>
     );
