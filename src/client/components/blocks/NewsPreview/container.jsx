@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { deleteArticleRequest } from 'client/actions';
-import DeleteForm from './component';
+import NewsPreview from './component';
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteArticle: (id, page) => {
@@ -9,4 +9,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(DeleteForm);
+export default connect(null, mapDispatchToProps)(NewsPreview);
