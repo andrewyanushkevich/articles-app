@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { addArticleRequest, updateArticleRequest } from 'client/actions';
-import WrappedForm from './component';
+import NewsForm from './component';
 
 const mapDispatchToProps = dispatch => ({
   handleAddArticle: (article) => {
@@ -12,4 +12,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(WrappedForm);
+export default connect(undefined, mapDispatchToProps)(NewsForm);

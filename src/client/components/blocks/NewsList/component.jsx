@@ -23,7 +23,7 @@ class NewsList extends Component {
     history.push(`${NEWS_URL}/create`);
   }
 
-  handleEntityClose = () => {
+  handleRemovingArticleModal= () => {
     const { history } = this.props;
     this.setState({
       showEntityModal: false,
@@ -49,15 +49,14 @@ class NewsList extends Component {
             renderItem={(item) => (
               <List.Item>
                 <NewsPreview 
-                article={item}
+                  article={item}
                 />
               </List.Item>)}
           />
         <Button onClick={this.handleEntityAddArticle}>Add Article></Button>
         <ArticleModal
           visible={showEntityModal}
-          action="Create"
-          onCancel={this.handleEntityClose}
+          onCancel={this.handleRemovingArticleModal}
         />
         <Pagination total = {total} onChange={handlePageChange}/>
       </div>

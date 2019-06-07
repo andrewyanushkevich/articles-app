@@ -10,9 +10,9 @@ class WarningModal extends Component {
         onCancel={onCancel}
         onOk={onOk}
       >
-        <div>
+        <p>
             Are you sure ?
-        </div>
+        </p>
       </Modal>
     ) 
   }

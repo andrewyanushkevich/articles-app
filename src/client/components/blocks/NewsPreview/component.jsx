@@ -14,7 +14,6 @@ class NewsPreview extends Component {
     this.state = {
       showEntityModal: false,
       showRemovingWarningModal: false,
-      action: '',
       page: 0,
     };
   }
@@ -22,7 +21,6 @@ class NewsPreview extends Component {
   handleEntityViewClick = () => {
     this.setState({
       showEntityModal: true,
-      action: 'View',
     });
   }
 
@@ -30,7 +28,6 @@ class NewsPreview extends Component {
     const { history, article } = this.props;
     this.setState({
       showEntityModal: true,
-      action: 'Edit',
     });
     history.push(`${NEWS_URL}/${article._id}`);
   }
@@ -46,7 +43,7 @@ class NewsPreview extends Component {
     history.push(`${NEWS_URL}/${article._id}`);
   }
 
-  handleWarningModalDismiss = () => {
+  handleWarningModalDismiss = (e) => {
     const { history } = this.props;
     this.setState({
       showRemovingWarningModal: false,
@@ -64,7 +61,7 @@ class NewsPreview extends Component {
     history.goBack();
   }
 
-  handleEntityClose = () => {
+  handleArticleModalDismiss = () => {
     const { history } = this.props;
     this.setState({
       showEntityModal: false,
@@ -73,33 +70,34 @@ class NewsPreview extends Component {
   }
 
   render() {
-    const { showEntityModal, showRemovingWarningModal, action } = this.state;
+    const { showEntityModal, showRemovingWarningModal } = this.state;
     const { article } = this.props;
     return (
-      <div>
-        <div>
+      <article>
+        <h2>
           {article.title}
-        </div>
-        <div>
+        </h2>
+        <p>
           {article.body}
-        </div>
+        </p>
         <div>
           <Button onClick={this.handleEntityViewClick}>View</Button>
           <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
           <Button onClick={this.handleEntityEditClick}>Edit</Button>
         </div>
         <ArticleModal 
-            article={article}
-            action={action}
+            id={article._id}
+            title={article.title}
+            body={article.body}
             visible={showEntityModal}
-            onCancel={this.handleEntityClose}
+            onCancel={this.handleArticleModalDismiss}
         />
         <WarningModal 
           visible={showRemovingWarningModal}
           onCancel={this.handleWarningModalDismiss}
           onOk={this.handleWarningModalSubmit}
         />
-      </div>
+      </article>
     );
   }
 }

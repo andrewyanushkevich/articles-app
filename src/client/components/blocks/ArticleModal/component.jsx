@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 import NewsForm from 'client/components/forms/NewsForm';
+import { Modal, Button } from 'antd';
 
 class ArticleModal extends Component {
   render() {
-    const { action, article, visible, onCancel } = this.props;
-    switch (action) {
-      case 'Edit': return (
-        <NewsForm 
-          formTitle="Edit Article"
-          formButtonName="Edit"
-          title={article.title}
-          body={article.body}
-          id={article._id}
-          visible={visible}
-          onCancel={onCancel}
+    const { title, body, id, visible, onCancel } = this.props;
+    return(
+      <Modal 
+        visible={visible}
+        onCancel={onCancel}
+        footer={[
+          <Button key="back" onClick={onCancel}>
+          Return
+          </Button>,]}
+        title={id ? "Edit Article" : "Create Article"}
+      >
+        <NewsForm
+          title={title ? title: ""}
+          body={body ? body: ""}
+          id={id}
+          formButtonName={id ? "Edit" : "Create"}
+          closeForm={onCancel}
         />
-      );
-      case 'Create': return (
-        <NewsForm 
-          formTitle="Create Article"
-          formButtonName="Create"
-          title=""
-          body=""
-          visible={visible}
-          onCancel={onCancel}
-        />
-      );
-      default: return <div></div>
-    }
+      </Modal>
+    )
   }
 }
 
