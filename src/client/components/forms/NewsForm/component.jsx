@@ -1,75 +1,79 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Title, Body, Submit } from './styles';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import * as Yup from 'yup';
 
-import ArticleForm from './form';
-import { NEWS_URL } from 'client/constants';
+const SubmitSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Title is required'),
+  body: Yup.string()
+    .required('Body is required'),
+  });
 
-class WrappedForm extends Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          visible: false
-        }
-    }
-    
-    showModal = () => {
-        const { history, id } = this.props;
-        this.setState({
-          visible: true
-        })
-        typeof id === 'undefined' ? history.push(`${NEWS_URL}/create`) : history.push(`${NEWS_URL}/${id}`);
-    }
+class NewsForm extends Component {
+  handleSubmit = (values, {resetForm}) => {
+    const { id, closeForm } = this.props;
+    let submit = typeof id === 'undefined' ? this.props.handleAddArticle : this.props.handleEditArticle;
+    const article = {
+      title: values.title,
+      body: values.body,
+      id,
+    };
+    submit(article);
+    resetForm({title: '', body: ''});
+    closeForm();
+  };
 
-    handleCancel = () => {
-        const { history } = this.props;
-        this.setState({
-            visible: false
-        })
-        history.goBack();
-    }
-    
-    render() {
-        const { visible } = this.state;
-        const { handleAddArticle, handleEditArticle, modalButtonName, formTitle, formButtonName, id } = this.props;
-        const title = this.props.title || '';
-        const body = this.props.body || '';
+  render() {
+    const { title, body, formButtonName } = this.props;
+    return(
+      <Formik
+      initialValues={{
+        title,
+        body,
+      }}
+      validationSchema={SubmitSchema}
+      onSubmit={this.handleSubmit}
+      render={() => {
         return (
-            <div>
-                <Button onClick={this.showModal}>
-                    {modalButtonName}
-                </Button>
-                <Modal
-                visible={visible}
-                footer={[
-                <Button key="back" onClick={this.handleCancel}>
-                Return
-                </Button>,]}
-                title={formTitle}
-                >
-                    <ArticleForm 
-                    title={title}
-                    body={body}
-                    handleAddArticle={handleAddArticle}
-                    handleEditArticle={handleEditArticle}
-                    history={history}
-                    formButtonName={formButtonName}
-                    id={id}
-                    closeForm={this.handleCancel}
-                    />
-                </Modal>
-            </div>
-        );
-    }
+          <Form>
+            <Title>
+              <p>
+                Title:
+              </p>
+              <Field component="input" name="title" />
+              <ErrorMessage name="title">
+                {errorMessage => <div>{errorMessage}</div>}
+              </ErrorMessage>
+            </Title>
+              <Body>
+                <p>
+                  Body:
+                </p>
+                <Field component="textarea" name="body" />
+                <ErrorMessage name="body">
+                  {errorMessage => <div>{errorMessage}</div>}
+                </ErrorMessage>
+              </Body>
+              <Submit>
+                <button type="submit">
+                  {formButtonName}
+                </button>
+              </Submit>
+          </Form>
+        )
+        }}
+        />
+    )
+  }
 }
 
-WrappedForm.propTypes = {
-    title: PropTypes.string,
-    body: PropTypes.string,
-    handleAddArticle: PropTypes.func,
-    handleEditArticle: PropTypes.func,
+NewsForm.propTypes = {
+  title: PropTypes.string,
+  body: PropTypes.string,
+  handleAddArticle: PropTypes.func,
+  handleEditArticle: PropTypes.func,
 }
 
-export default withRouter(WrappedForm);
+export default NewsForm;

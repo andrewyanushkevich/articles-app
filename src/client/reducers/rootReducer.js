@@ -27,9 +27,7 @@ const reducer = (state = initialState, action) => {
       total: state.total + 1,
     });
   case actions.UPDATE_ARTICLE_RESPONSE:
-    const list = state.articles.map((elem) => {
-      return elem._id === action.article._id ? action.article : elem;
-    });
+    const list = state.articles.map(elem => (elem._id === action.article._id ? action.article : elem));
     return Object.assign({}, state, {
       articles: list,
     });

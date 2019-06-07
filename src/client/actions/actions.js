@@ -40,3 +40,13 @@ export const updateArticleResponseFail = error => ({
   type: actions.UPDATE_ARTICLE_RESPONSE_FAIL,
   error,
 });
+
+export const deleteArticleRequest = (id, page) => ({
+  type: actions.DELETE_ARTICLE_REQUEST,
+  id,
+  page,
+});
+export const deleteArticleResponseFail = error => ({
+  type: actions.UPDATE_ARTICLE_RESPONSE_FAIL,
+  error,
+});

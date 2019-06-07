@@ -3,9 +3,33 @@ import { withRouter } from 'react-router-dom';
 import { List, Pagination, Button } from 'antd';
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
-import NewsForm from 'client/components/forms/NewsForm';
+import ArticleModal from 'client/components/blocks/ArticleModal'
+import { NEWS_URL } from 'client/constants';
 
 class NewsList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showEntityModal: false,
+    };
+  }
+
+  handleEntityAddArticle = () => {
+    const { history } =this.props;
+    this.setState({
+      showEntityModal: true,
+    });
+    history.push(`${NEWS_URL}/create`);
+  }
+
+  handleRemovingArticleModal= () => {
+    const { history } = this.props;
+    this.setState({
+      showEntityModal: false,
+    });
+    history.goBack();
+  }
 
   componentDidMount() {
     const { handlePageChange } = this.props;
@@ -13,29 +37,29 @@ class NewsList extends Component {
   }
 
   render() {
+    const { showEntityModal } = this.state;
     const { articles, total } = this.props.data;
     const { handlePageChange } = this.props;
     return (
-        <div>
-          <NewsForm 
-          modalButtonName="Add Article" 
-          formTitle="Create Article" 
-          formButtonName="Create"/>
+      <div>
+        <Button onClick={this.handleEntityAddArticle}>Add Article</Button>
           <List 
-              size="large"
-              dataSource={articles}
-              renderItem={(item) => (
+            size="large"
+            dataSource={articles}
+            renderItem={(item) => (
               <List.Item>
                 <NewsPreview 
-                article={item}
-                modalButtonName="Edit Article" 
-                formTitle="Edit Article" 
-                formButtonName="Update"/>
+                  article={item}
+                />
               </List.Item>)}
           />
-          <NewsForm />
-          <Pagination total = {total} onChange={handlePageChange}/>
-        </div>
+        <Button onClick={this.handleEntityAddArticle}>Add Article></Button>
+        <ArticleModal
+          visible={showEntityModal}
+          onCancel={this.handleRemovingArticleModal}
+        />
+        <Pagination total = {total} onChange={handlePageChange}/>
+      </div>
     );
   }
 }
