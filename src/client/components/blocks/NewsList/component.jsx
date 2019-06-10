@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { List, Pagination, Button } from 'antd';
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
-import ArticleModal from 'client/components/blocks/ArticleModal'
-import { NEWS_URL } from 'client/constants';
+import ArticleModal from 'client/components/blocks/ArticleModal';
+import { NEWS_URL, NEWS_PER_PAGE } from 'client/constants';
+import { ArticleList } from './styles';
 
 class NewsList extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class NewsList extends Component {
   }
 
   handleEntityAddArticle = () => {
-    const { history } =this.props;
+    const { history } = this.props;
     this.setState({
       showEntityModal: true,
     });
@@ -32,8 +33,10 @@ class NewsList extends Component {
   }
 
   componentDidMount() {
-    const { handlePageChange } = this.props;
-    handlePageChange(1);
+    const { location, handlePageChange } = this.props;
+    const url = new URLSearchParams(location.search);
+    const page = url.get("skip") / NEWS_PER_PAGE;
+    handlePageChange(page);
   }
 
   render() {
@@ -41,7 +44,7 @@ class NewsList extends Component {
     const { articles, total } = this.props.data;
     const { handlePageChange } = this.props;
     return (
-      <div>
+      <ArticleList>
         <Button onClick={this.handleEntityAddArticle}>Add Article</Button>
           <List 
             size="large"
@@ -59,7 +62,7 @@ class NewsList extends Component {
           onCancel={this.handleRemovingArticleModal}
         />
         <Pagination total = {total} onChange={handlePageChange}/>
-      </div>
+      </ArticleList>
     );
   }
 }

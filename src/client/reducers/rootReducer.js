@@ -31,6 +31,10 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       articles: list,
     });
+  case actions.GET_ARTICLE_RESPONSE:
+    return Object.assign({}, state, {
+      article: action.article,
+    });
   case actions.ARTICLES_RESPONSE_FAIL:
     return action.error;
   case actions.ADD_ARTICLE_RESPONSE_FAIL:

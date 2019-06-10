@@ -50,3 +50,16 @@ export const deleteArticleResponseFail = error => ({
   type: actions.UPDATE_ARTICLE_RESPONSE_FAIL,
   error,
 });
+
+export const getArticleRequest = id => ({
+  type: actions.GET_ARTICLE_REQUEST,
+  id,
+});
+export const getArticleResponse = article => ({
+  type: actions.GET_ARTICLE_RESPONSE,
+  article,
+});
+export const getArticleResponseFail = error => ({
+  type: actions.GET_ARTICLE_RESPONSE_FAIL,
+  error,
+});
