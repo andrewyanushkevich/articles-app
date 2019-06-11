@@ -69,9 +69,14 @@ class NewsList extends Component {
 }
 
 NewsList.propTypes = {
-  ArticleList: PropTypes.element,
-  data: PropTypes.object,
-  handlePageChange: PropTypes.func
+  data: PropTypes.shape({
+    articles: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired
+    })).isRequired,
+    total: PropTypes.number.isRequired
+  }).isRequired,
 }
 
 export default withRouter(NewsList);

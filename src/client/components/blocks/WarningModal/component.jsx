@@ -21,9 +21,9 @@ class WarningModal extends Component {
 }
 
 WarningModal.propTypes = {
-  visible: PropTypes.bool,
-  onCancel: PropTypes.func,
-  onOk: PropTypes.func
+  visible: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onOk: PropTypes.func.isRequired
 }
 
 export default WarningModal;

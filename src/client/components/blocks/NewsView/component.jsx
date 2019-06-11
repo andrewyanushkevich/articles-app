@@ -11,6 +11,7 @@ class NewsView extends Component {
     history.goBack();
   }
   render() {
+    const { article } = this.props.data;
     return (
       <Article>
         <Title>
@@ -28,14 +29,13 @@ class NewsView extends Component {
 }
 
 NewsView.propTypes = {
-    article: PropTypes.object,
-    Article: PropTypes.element,
-    Title: PropTypes.element, 
-    Body: PropTypes.element, 
-}
-
-NewsView.defaultProps = {
-  article: {}
-}
+  data: PropTypes.shape({
+    article: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired
+    })
+  }).isRequired
+};
 
 export default withRouter(NewsView);

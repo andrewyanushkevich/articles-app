@@ -33,8 +33,8 @@ ArticleModal.propTypes = {
   title: PropTypes.string,
   body: PropTypes.string,
   id: PropTypes.string,
-  visible: PropTypes.bool,
-  onCancel: PropTypes.func
+  visible: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired
 }
 
 export default ArticleModal;

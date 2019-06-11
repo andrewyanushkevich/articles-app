@@ -104,13 +104,11 @@ class NewsPreview extends Component {
 }
 
 NewsPreview.propTypes = {
-    article: PropTypes.object,
-    Article: PropTypes.element,
-    Title: PropTypes.element, 
-    Body: PropTypes.element, 
-    ArticleButtons: PropTypes.element,
-    handleGetArticle: PropTypes.func,
-    handleDeleteArticle: PropTypes.func
+  article: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default withRouter(NewsPreview);

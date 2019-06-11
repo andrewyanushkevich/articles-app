@@ -6,8 +6,13 @@ import watchUpdateArticle from './UpdateArticleSaga';
 import watchDeleteArticle from './DeleteArticleSaga';
 
 function* rootSaga() {
-  yield all([watchGetArticles(), watchGetArticle(), watchAddArticle(),
-    watchUpdateArticle(), watchDeleteArticle()]);
+  yield all([
+    watchGetArticles(),
+    watchGetArticle(),
+    watchAddArticle(),
+    watchUpdateArticle(),
+    watchDeleteArticle(),
+  ]);
 }
 
 export default rootSaga;
