@@ -1,4 +1,6 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
+
+import { requestHeader } from 'client/helpers'
 import { articlesRequest, deleteArticleResponseFail } from 'client/actions';
 import { DELETE_ARTICLE_REQUEST, ARTICLE_API_URL } from 'client/constants';
 
@@ -7,7 +9,7 @@ function* deleteArticle(action) {
   try {
     yield call(fetch, `${ARTICLE_API_URL}/${id}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: requestHeader,
     });
     yield put(articlesRequest(page));
   } catch (error) {

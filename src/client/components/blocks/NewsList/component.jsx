@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { List, Pagination, Button } from 'antd';
+import PropTypes from 'prop-types';
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
 import ArticleModal from 'client/components/blocks/ArticleModal';
@@ -65,6 +66,12 @@ class NewsList extends Component {
       </ArticleList>
     );
   }
+}
+
+NewsList.propTypes = {
+  ArticleList: PropTypes.element,
+  data: PropTypes.object,
+  handlePageChange: PropTypes.func
 }
 
 export default withRouter(NewsList);

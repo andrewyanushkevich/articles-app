@@ -1,4 +1,6 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
+
+import { requestHeader } from 'client/helpers'
 import { getArticleResponse, getArticleResponseFail } from 'client/actions';
 import { GET_ARTICLE_REQUEST, ARTICLE_API_URL } from 'client/constants';
 
@@ -7,7 +9,7 @@ function* getArticle(action) {
   try {
     const response = yield call(fetch, `${ARTICLE_API_URL}/${id}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: requestHeader,
     });
     const jsonResponse = yield response.json();
     const { data } = jsonResponse;
