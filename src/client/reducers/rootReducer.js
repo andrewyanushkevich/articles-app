@@ -6,6 +6,7 @@ import * as actions from 'client/constants';
 const initialState = {
   articles: [],
   total: 0,
+  article: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +31,10 @@ const reducer = (state = initialState, action) => {
     const list = state.articles.map(elem => (elem._id === action.article._id ? action.article : elem));
     return Object.assign({}, state, {
       articles: list,
+    });
+  case actions.GET_ARTICLE_RESPONSE:
+    return Object.assign({}, state, {
+      article: action.article,
     });
   case actions.ARTICLES_RESPONSE_FAIL:
     return action.error;

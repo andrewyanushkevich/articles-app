@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import NewsForm from 'client/components/forms/NewsForm';
 import { Modal, Button } from 'antd';
+import PropTypes from 'prop-types';
+
+import NewsForm from 'client/components/forms/NewsForm';
 
 class ArticleModal extends Component {
   render() {
@@ -25,6 +27,14 @@ class ArticleModal extends Component {
       </Modal>
     )
   }
+}
+
+ArticleModal.propTypes = {
+  title: PropTypes.string,
+  body: PropTypes.string,
+  id: PropTypes.string,
+  visible: PropTypes.bool.isRequired,
+  onCancel: PropTypes.func.isRequired
 }
 
 export default ArticleModal;

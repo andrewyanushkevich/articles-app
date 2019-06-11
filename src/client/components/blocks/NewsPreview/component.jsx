@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ArticleModal from 'client/components/blocks/ArticleModal';
 import WarningModal from 'client/components/blocks/WarningModal';
 import { NEWS_PER_PAGE, NEWS_URL } from 'client/constants';
+import { Article, Title, Body, ArticleButtons } from './styles';
 
 class NewsPreview extends Component {
   constructor(props) {
@@ -19,9 +20,9 @@ class NewsPreview extends Component {
   }
 
   handleEntityViewClick = () => {
-    this.setState({
-      showEntityModal: true,
-    });
+    const { history, article, handleGetArticle } = this.props;
+    handleGetArticle(article._id);
+    history.push(`${NEWS_URL}/view/${article._id}`);
   }
 
   handleEntityEditClick = () => {
@@ -29,7 +30,7 @@ class NewsPreview extends Component {
     this.setState({
       showEntityModal: true,
     });
-    history.push(`${NEWS_URL}/${article._id}`);
+    history.push(`${NEWS_URL}/edit/${article._id}`);
   }
 
   handleEntityDeleteClick = () => {
@@ -40,7 +41,7 @@ class NewsPreview extends Component {
       showRemovingWarningModal: true,
       page,
     });
-    history.push(`${NEWS_URL}/${article._id}`);
+    history.push(`${NEWS_URL}/delete/${article._id}`);
   }
 
   handleWarningModalDismiss = (e) => {
@@ -73,18 +74,18 @@ class NewsPreview extends Component {
     const { showEntityModal, showRemovingWarningModal } = this.state;
     const { article } = this.props;
     return (
-      <article>
-        <h2>
+      <Article>
+        <Title>
           {article.title}
-        </h2>
-        <p>
+        </Title>
+        <Body>
           {article.body}
-        </p>
-        <div>
+        </Body>
+        <ArticleButtons>
           <Button onClick={this.handleEntityViewClick}>View</Button>
           <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
           <Button onClick={this.handleEntityEditClick}>Edit</Button>
-        </div>
+        </ArticleButtons>
         <ArticleModal 
             id={article._id}
             title={article.title}
@@ -97,13 +98,17 @@ class NewsPreview extends Component {
           onCancel={this.handleWarningModalDismiss}
           onOk={this.handleWarningModalSubmit}
         />
-      </article>
+      </Article>
     );
   }
 }
 
 NewsPreview.propTypes = {
-    article: PropTypes.object
+  article: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default withRouter(NewsPreview);
