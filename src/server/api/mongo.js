@@ -5,8 +5,8 @@ require('dotenv').config({ path: './.env' });
 
 const articleSchema = new Schema({
   title: String,
-  body: String,
-  shortBody: String,
+  detailedDescription: String,
+  shortDescription: String,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
   image: [{ name: String, url: String }],

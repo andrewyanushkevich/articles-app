@@ -18,7 +18,7 @@ class NewsView extends Component {
           {article.title}
         </Title>
         <Body>
-          {article.body}
+          {article.detailedDescription}
         </Body>
         <div>
           <Button onClick={this.handleCancel}>Return</Button>
@@ -33,7 +33,7 @@ NewsView.propTypes = {
     article: PropTypes.shape({
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired
+      detailedDescription: PropTypes.string.isRequired
     })
   }).isRequired
 };

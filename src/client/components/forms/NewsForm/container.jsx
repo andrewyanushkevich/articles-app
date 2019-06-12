@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import { addArticleRequest, updateArticleRequest } from 'client/actions';
+
 import NewsForm from './component';
 
 const mapDispatchToProps = dispatch => ({

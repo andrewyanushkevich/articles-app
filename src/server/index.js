@@ -2,8 +2,9 @@ import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
 
-import apiRouter from './router/api/index';
 import { API_URL } from 'client/constants';
+
+import apiRouter from './router/api/index';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
@@ -29,11 +30,11 @@ server
             ? `<script src="${assets.client.js}" defer></script>`
             : `<script src="${assets.client.js}" defer crossorigin></script>`}
     </head>
-    <body>
+    <detailedDescription>
         <div id="root">${markup}</div>
         <script>
         </script>
-    </body>
+    </detailedDescription>
 </html>`);
     });
 

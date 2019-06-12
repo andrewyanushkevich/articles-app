@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { Title, Body, Submit } from './styles';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+
+import { Title, Body, Submit } from './styles';
 
 const SubmitSchema = Yup.object().shape({
   title: Yup.string()
     .required('Title is required'),
-  body: Yup.string()
-    .required('Body is required'),
+  detailedDescription: Yup.string()
+    .required('Description is required'),
   });
 
 class NewsForm extends Component {
@@ -17,21 +18,21 @@ class NewsForm extends Component {
     let submit = typeof id === 'undefined' ? this.props.handleAddArticle : this.props.handleEditArticle;
     const article = {
       title: values.title,
-      body: values.body,
+      detailedDescription: values.detailedDescription,
       id,
     };
     submit(article);
-    resetForm({title: '', body: ''});
+    resetForm({title: '', detailedDescription: ''});
     closeForm();
   };
 
   render() {
-    const { title, body, formButtonName } = this.props;
+    const { title, detailedDescription, formButtonName } = this.props;
     return(
       <Formik
       initialValues={{
         title,
-        body,
+        detailedDescription,
       }}
       validationSchema={SubmitSchema}
       onSubmit={this.handleSubmit}
@@ -49,7 +50,7 @@ class NewsForm extends Component {
             </Title>
               <Body>
                 <p>
-                  Body:
+                  Description:
                 </p>
                 <Field component="textarea" name="body" />
                 <ErrorMessage name="body">
@@ -71,7 +72,7 @@ class NewsForm extends Component {
 
 NewsForm.propTypes = {
   title: PropTypes.string,
-  body: PropTypes.string,
+  detailedDescription: PropTypes.string,
   handleAddArticle: PropTypes.func,
   handleEditArticle: PropTypes.func,
 }

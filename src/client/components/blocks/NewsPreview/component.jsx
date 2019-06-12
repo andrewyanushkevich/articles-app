@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import ArticleModal from 'client/components/blocks/ArticleModal';
 import WarningModal from 'client/components/blocks/WarningModal';
 import { NEWS_PER_PAGE, NEWS_URL } from 'client/constants';
+
 import { Article, Title, Body, ArticleButtons } from './styles';
 
 class NewsPreview extends Component {
@@ -79,7 +80,7 @@ class NewsPreview extends Component {
           {article.title}
         </Title>
         <Body>
-          {article.body}
+          {article.shortDescription}
         </Body>
         <ArticleButtons>
           <Button onClick={this.handleEntityViewClick}>View</Button>
@@ -89,7 +90,7 @@ class NewsPreview extends Component {
         <ArticleModal 
             id={article._id}
             title={article.title}
-            body={article.body}
+            detailedDescription={article.detailedDescription}
             visible={showEntityModal}
             onCancel={this.handleArticleModalDismiss}
         />
@@ -107,7 +108,7 @@ NewsPreview.propTypes = {
   article: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired
+    detailedDescription: PropTypes.string.isRequired
   }).isRequired
 }
 

@@ -6,7 +6,7 @@ import NewsForm from 'client/components/forms/NewsForm';
 
 class ArticleModal extends Component {
   render() {
-    const { title, body, id, visible, onCancel } = this.props;
+    const { title, detailedDescription, id, visible, onCancel } = this.props;
     return(
       <Modal 
         visible={visible}
@@ -19,7 +19,7 @@ class ArticleModal extends Component {
       >
         <NewsForm
           title={title ? title: ""}
-          body={body ? body: ""}
+          detailedDescription={detailedDescription ? detailedDescription: ""}
           id={id}
           formButtonName={id ? "Edit" : "Create"}
           closeForm={onCancel}
@@ -31,7 +31,7 @@ class ArticleModal extends Component {
 
 ArticleModal.propTypes = {
   title: PropTypes.string,
-  body: PropTypes.string,
+  detailedDescription: PropTypes.string,
   id: PropTypes.string,
   visible: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired

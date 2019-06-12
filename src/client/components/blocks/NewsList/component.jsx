@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import NewsPreview from 'client/components/blocks/NewsPreview';
 import ArticleModal from 'client/components/blocks/ArticleModal';
 import { NEWS_URL, NEWS_PER_PAGE } from 'client/constants';
+
 import { ArticleList } from './styles';
 
 class NewsList extends Component {
@@ -73,7 +74,7 @@ NewsList.propTypes = {
     articles: PropTypes.arrayOf(PropTypes.shape({
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired
+      detailedDescription: PropTypes.string.isRequired
     })).isRequired,
     total: PropTypes.number.isRequired
   }).isRequired,
