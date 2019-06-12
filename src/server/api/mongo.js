@@ -6,8 +6,10 @@ require('dotenv').config({ path: './.env' });
 const articleSchema = new Schema({
   title: String,
   body: String,
+  shortBody: String,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
+  image: [{ name: String, url: String }],
 });
 
 const Article = mongoose.model('Article', articleSchema);

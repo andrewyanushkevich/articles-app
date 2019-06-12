@@ -1,5 +1,6 @@
 export const NEWS_PER_PAGE = 10;
 export const NEWS_URL = '/news';
+export const SHORT_BODY_SENTENCES_LIMIT = 5;
 
 export const API_URL = '/api';
 export const ARTICLE_URL = '/article';

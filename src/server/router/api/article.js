@@ -1,10 +1,15 @@
 import express from 'express';
 import Article from 'server/api/mongo';
 import bodyParser from 'body-parser';
+import multer from 'multer';
 
+import { SHORT_BODY_SENTENCES_LIMIT } from 'client/constants';
 import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
 
 const router = express.Router();
+const uploud = multer({ dest: '/images' });
+uploud.array('article-image');
+
 router.use(errorHandler);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -30,8 +35,20 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const { title, body } = req.body;
+  const { files } = req;
+  let image;
+  if (typeof files !== 'undefined') {
+    image = files.map((element) => {
+      return { url: element.destination, name: element.filename };
+    });
+  }
+  const shortBody = body
+    .split('.', SHORT_BODY_SENTENCES_LIMIT)
+    .reduce((result, element) => {
+      return `${result + element}.`;
+    });
   const article = new Article({
-    title, body, createdAt: new Date(), unpdatedAt: new Date(),
+    title, body, shortBody, createdAt: new Date(), unpdatedAt: new Date(), image,
   });
 
   article.save((err, newArticle) => {
