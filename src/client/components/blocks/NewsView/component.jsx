@@ -33,7 +33,8 @@ NewsView.propTypes = {
     article: PropTypes.shape({
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      detailedDescription: PropTypes.string.isRequired
+      detailedDescription: PropTypes.string.isRequired,
+      shortDescription: PropTypes.string.isRequired
     })
   }).isRequired
 };

@@ -74,7 +74,8 @@ NewsList.propTypes = {
     articles: PropTypes.arrayOf(PropTypes.shape({
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      detailedDescription: PropTypes.string.isRequired
+      detailedDescription: PropTypes.string.isRequired,
+      shortDescription: PropTypes.string.isRequired
     })).isRequired,
     total: PropTypes.number.isRequired
   }).isRequired,
