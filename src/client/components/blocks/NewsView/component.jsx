@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { VKShareButton, VKIcon, VKShareCount } from 'react-share';
 
-import { Article, Title, Body } from './styles';
+import { Article, Title, Body, ShareSocialMedia } from './styles';
 
 class NewsView extends Component {
   handleCancel = () => {
@@ -12,18 +13,35 @@ class NewsView extends Component {
   }
   render() {
     const { article } = this.props.data;
+    const { location } = this.props;
     return (
-      <Article>
-        <Title>
-          {article.title}
-        </Title>
-        <Body>
-          {article.detailedDescription}
-        </Body>
-        <div>
-          <Button onClick={this.handleCancel}>Return</Button>
-        </div>
-      </Article>
+      <section>
+        <Article>
+          <Title>
+            {article.title}
+          </Title>
+          <Body>
+            {article.detailedDescription}
+          </Body>
+          <div>
+            <Button onClick={this.handleCancel}>Return</Button>
+          </div>
+        </Article>
+        <ShareSocialMedia>
+          <VKShareButton
+            url={"https://" + location.pathname}
+            title={article.title}
+            description={article.detailedDescription}
+            image={article.image ? article.image.url: ''}
+          >
+            <VKIcon 
+              round="bool"
+              size="40"
+            />
+            <VKShareCount />
+          </VKShareButton>
+        </ShareSocialMedia>
+      </section>
     );
   }
 }

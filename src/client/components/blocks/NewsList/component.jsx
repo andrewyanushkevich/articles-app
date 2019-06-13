@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { List, Pagination, Button } from 'antd';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import { VKShareButton, VKIcon, VKShareCount } from 'react-share';;
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
 import ArticleModal from 'client/components/blocks/ArticleModal';
