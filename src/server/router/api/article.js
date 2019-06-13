@@ -44,11 +44,13 @@ router.post('/', checkUploadPath, (req, res, next) => {
   if (typeof files !== 'undefined') {
     image = files.map(element => ({ url: element.destination, name: element.filename }));
   }
-  const shortDescription = detailedDescription
-    .split('.', SHORT_BODY_LETTERS_LIMIT)
-    .reduce((result, element) => `${result + element}.`);
   const article = new Article({
-    title, detailedDescription, shortDescription, createdAt: new Date(), unpdatedAt: new Date(), image,
+    title,
+    detailedDescription,
+    shortDescription: `${detailedDescription.slice(0, SHORT_BODY_LETTERS_LIMIT)}...`,
+    createdAt: new Date(),
+    unpdatedAt: new Date(),
+    image,
   });
 
   article.save((err, newArticle) => {
