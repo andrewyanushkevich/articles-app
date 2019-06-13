@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose, { model, connect } from 'mongoose';
 
 const { Schema } = mongoose;
 require('dotenv').config({ path: './.env' });
@@ -12,12 +12,12 @@ const articleSchema = new Schema({
   image: [{ name: String, url: String }],
 });
 
-const Article = mongoose.model('Article', articleSchema);
+const Article = model('Article', articleSchema);
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@training-rm1po.mongodb.net/test?retryWrites=true`;
 
-mongoose.connect(uri, { useNewUrlParser: true, useFindAndModify: false }, (err) => {
+connect(uri, { useNewUrlParser: true, useFindAndModify: false }, (err) => {
   if (err) return console.log(err);
   console.log('Connection');
 });
 
-module.exports = Article;
+export default Article;

@@ -1,19 +1,19 @@
 # Razzle and Redux Example
 
 ## How to use
-Download the example [or clone the whole project](https://github.com/jaredpalmer/razzle.git):
+Download the example [or clone the whole project](https://github.com/andrewyanushkevich/articles-app):
 
 ```bash
-curl https://codeload.github.com/jaredpalmer/razzle/tar.gz/master | tar -xz --strip=2 razzle-master/examples/with-redux
-cd with-redux
+clone https://github.com/andrewyanushkevich/articles-app
+cd articles-app
 ```
 
 Install it and run:
 
 ```bash
-yarn install
-yarn start
+npm install
+npm start
 ```
 
-## Idea behind the example
-Almost 100% of the code is taken from the [official Redux universal example](https://github.com/reactjs/redux/tree/master/examples/universal).
+## Note
+The app will try to create a folder with images in the root and it will ask you a permission to write.

@@ -1,6 +1,6 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
 
-import { requestHeader } from 'client/helpers'
+import { requestHeader } from 'client/helpers';
 import { addArticleResponse, addArticleResponseFail } from 'client/actions';
 import { ADD_ARTICLE_REQUEST, ARTICLE_API_URL } from 'client/constants';
 

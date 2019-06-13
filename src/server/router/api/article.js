@@ -3,13 +3,16 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 import Article from 'server/api/mongo';
-import { SHORT_BODY_LETTERS_LIMIT } from 'client/constants';
+import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_PATH } from 'client/constants';
 
-import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
+import {
+  buildErrorResponse, buildSuccessResponse, errorHandler, checkUploadPath,
+} from './helpers';
 
 const router = express.Router();
-const uploud = multer({ dest: '/images' });
-uploud.array('article-image');
+
+const upload = multer({ dest: UPLOAD_PATH });
+upload.array('article-image');
 
 router.use(errorHandler);
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -34,22 +37,20 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkUploadPath, (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
   let image;
   if (typeof files !== 'undefined') {
-    image = files.map((element) => {
-      return { url: element.destination, name: element.filename };
-    });
+    image = files.map(element => ({ url: element.destination, name: element.filename }));
   }
-  const shortDescription = detailedDescription
-    .split('.', SHORT_BODY_LETTERS_LIMIT)
-    .reduce((result, element) => {
-      return `${result + element}.`;
-    });
   const article = new Article({
-    title, detailedDescription, shortDescription, createdAt: new Date(), unpdatedAt: new Date(), image,
+    title,
+    detailedDescription,
+    shortDescription: `${detailedDescription.slice(0, SHORT_BODY_LETTERS_LIMIT)}...`,
+    createdAt: new Date(),
+    unpdatedAt: new Date(),
+    image,
   });
 
   article.save((err, newArticle) => {
@@ -69,12 +70,12 @@ router.put('/:id', (req, res, next) => {
 
   const { title, detailedDescription } = req.body;
   const shortDescription = detailedDescription
-    .split('.', SHORT_BODY_SENTENCES_LIMIT)
-    .reduce((result, element) => {
-      return `${result + element}.`;
-    });
+    .split('.', SHORT_BODY_LETTERS_LIMIT)
+    .reduce((result, element) => `${result + element}.`);
   Article.findByIdAndUpdate(id,
-    { title, detailedDescription, shortDescription, updated_at: new Date() },
+    {
+      title, detailedDescription, shortDescription, updated_at: new Date(),
+    },
     { new: true }, (err, article) => {
       if (err) {
         next(err);
