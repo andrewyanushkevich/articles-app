@@ -15,8 +15,8 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
-      const markup = renderToString(<div>Hello</div>);
-      res.send(`<!doctype html>
+    const markup = renderToString(<div>Hello</div>);
+    res.send(`<!doctype html>
     <html lang="">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />

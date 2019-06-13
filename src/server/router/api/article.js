@@ -3,13 +3,14 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 import Article from 'server/api/mongo';
-import { SHORT_BODY_LETTERS_LIMIT } from 'client/constants';
+import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_PATH } from 'client/constants';
 
-import { buildErrorResponse, buildSuccessResponse, errorHandler } from './helpers';
+import { buildErrorResponse, buildSuccessResponse, errorHandler, checkUploadPath } from './helpers';
 
 const router = express.Router();
-const uploud = multer({ dest: '/images' });
-uploud.array('article-image');
+
+const upload = multer({ dest: UPLOAD_PATH });
+upload.array('article-image')
 
 router.use(errorHandler);
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -34,7 +35,7 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkUploadPath, (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
   let image;
@@ -69,7 +70,7 @@ router.put('/:id', (req, res, next) => {
 
   const { title, detailedDescription } = req.body;
   const shortDescription = detailedDescription
-    .split('.', SHORT_BODY_SENTENCES_LIMIT)
+    .split('.', SHORT_BODY_LETTERS_LIMIT)
     .reduce((result, element) => {
       return `${result + element}.`;
     });

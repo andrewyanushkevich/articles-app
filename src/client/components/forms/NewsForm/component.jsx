@@ -52,8 +52,8 @@ class NewsForm extends Component {
                 <p>
                   Description:
                 </p>
-                <Field component="textarea" name="body" />
-                <ErrorMessage name="body">
+                <Field component="textarea" name="detailedDescription" />
+                <ErrorMessage name="detailedDescription">
                   {errorMessage => <div>{errorMessage}</div>}
                 </ErrorMessage>
               </Body>
