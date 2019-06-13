@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { VKShareButton, VKIcon, VKShareCount } from 'react-share';
 
 import ArticleModal from 'client/components/blocks/ArticleModal';
 import WarningModal from 'client/components/blocks/WarningModal';
 import { NEWS_PER_PAGE, NEWS_URL } from 'client/constants';
 
-import { Article, Title, Body, ArticleButtons } from './styles';
+import { Article, Title, Body, ArticleButtons, ShareSocialMedia } from './styles';
 
 class NewsPreview extends Component {
   constructor(props) {
@@ -75,31 +76,47 @@ class NewsPreview extends Component {
     const { showEntityModal, showRemovingWarningModal } = this.state;
     const { article } = this.props;
     return (
-      <Article>
-        <Title>
-          {article.title}
-        </Title>
-        <Body>
-          {article.shortDescription}
-        </Body>
-        <ArticleButtons>
-          <Button onClick={this.handleEntityViewClick}>View</Button>
-          <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
-          <Button onClick={this.handleEntityEditClick}>Edit</Button>
-        </ArticleButtons>
-        <ArticleModal 
-            id={article._id}
-            title={article.title}
-            detailedDescription={article.detailedDescription}
-            visible={showEntityModal}
-            onCancel={this.handleArticleModalDismiss}
-        />
-        <WarningModal 
-          visible={showRemovingWarningModal}
-          onCancel={this.handleWarningModalDismiss}
-          onOk={this.handleWarningModalSubmit}
-        />
-      </Article>
+      <section>
+        <Article>
+          <Title>
+            {article.title}
+          </Title>
+          <Body>
+            {article.shortDescription}
+          </Body>
+          <ArticleButtons>
+            <Button onClick={this.handleEntityViewClick}>View</Button>
+            <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
+            <Button onClick={this.handleEntityEditClick}>Edit</Button>
+          </ArticleButtons>
+          <ArticleModal 
+              id={article._id}
+              title={article.title}
+              detailedDescription={article.detailedDescription}
+              visible={showEntityModal}
+              onCancel={this.handleArticleModalDismiss}
+          />
+          <WarningModal 
+            visible={showRemovingWarningModal}
+            onCancel={this.handleWarningModalDismiss}
+            onOk={this.handleWarningModalSubmit}
+          />
+        </Article>
+        <ShareSocialMedia>
+        <VKShareButton
+          url={"https://" + location.pathname}
+          title={article.title}
+          description={article.detailedDescription}
+          image={article.image ? article.image.url: ''}
+        >
+          <VKIcon 
+            round="bool"
+            size="40"
+          />
+          <VKShareCount />
+        </VKShareButton>
+      </ShareSocialMedia>
+    </section>
     );
   }
 }

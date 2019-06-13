@@ -22,3 +22,12 @@ export const ArticleButtons = styled.div`
     margin: 10px;
   }
 `;
+
+export const ShareSocialMedia = styled.div`
+  margin: 10px auto;
+  text-align: center;
+  width: 5%;
+  &:hover {
+    cursor: pointer;
+  };
+`;

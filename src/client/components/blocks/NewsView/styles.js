@@ -16,3 +16,12 @@ export const Body = styled.p`
   border-bottom: 1px solid black;
   padding: 20px;
 `;
+
+export const ShareSocialMedia = styled.div`
+  margin: 10px auto;
+  text-align: center;
+  width: 5%;
+  &:hover {
+    cursor: pointer;
+  };
+`;
