@@ -15,13 +15,13 @@ class ArticleModal extends Component {
           <Button key="back" onClick={onCancel}>
           Return
           </Button>,]}
-        title={id ? "Edit Article" : "Create Article"}
+        title={id ? 'Edit Article' : 'Create Article'}
       >
         <NewsForm
-          title={title ? title: ""}
-          detailedDescription={detailedDescription ? detailedDescription: ""}
+          title={title ? title: ''}
+          detailedDescription={detailedDescription ? detailedDescription: ''}
           id={id}
-          formButtonName={id ? "Edit" : "Create"}
+          formButtonName={id ? 'Edit' : 'Create'}
           closeForm={onCancel}
         />
       </Modal>
@@ -34,7 +34,7 @@ ArticleModal.propTypes = {
   detailedDescription: PropTypes.string,
   id: PropTypes.string,
   visible: PropTypes.bool.isRequired,
-  onCancel: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
 }
 
 export default ArticleModal;

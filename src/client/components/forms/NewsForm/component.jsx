@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
+import * as fields from 'client/constants';
+
 import { Title, Body, Submit } from './styles';
 
 const SubmitSchema = Yup.object().shape({
@@ -43,7 +45,7 @@ class NewsForm extends Component {
               <p>
                 Title:
               </p>
-              <Field component="input" name="title" />
+              <Field component="input" name={fields.TITLE_FIELD} />
               <ErrorMessage name="title">
                 {errorMessage => <div>{errorMessage}</div>}
               </ErrorMessage>
@@ -52,7 +54,7 @@ class NewsForm extends Component {
                 <p>
                   Description:
                 </p>
-                <Field component="textarea" name="detailedDescription" />
+                <Field component="textarea" name={fields.DETAILED_DESCRIPTION_FIELD} />
                 <ErrorMessage name="detailedDescription">
                   {errorMessage => <div>{errorMessage}</div>}
                 </ErrorMessage>
