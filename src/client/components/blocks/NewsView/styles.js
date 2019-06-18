@@ -30,7 +30,7 @@ export const Images = styled.div`
   display: flex;
   flex-direction: column;
   item-align: center;
-  > img {
+  & > img {
     margin: 20px;
   }
 `;

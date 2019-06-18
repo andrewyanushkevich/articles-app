@@ -8,9 +8,9 @@ function* addArticle(action) {
   const formData = new FormData();
   formData.append('title', article.title);
   formData.append('detailedDescription', article.detailedDescription);
-  article.images.forEach((element) => {
-    formData.append('images', element); 
-  });
+  for (let i = 0; i < article.images.length; i += 1) {
+    formData.append('images', article.images[i]); 
+  }
   try {
     const response = yield call(fetch, `${ARTICLE_API_URL}`, {
       method: 'POST',

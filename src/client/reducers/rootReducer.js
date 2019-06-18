@@ -6,7 +6,6 @@ import * as actions from 'client/constants';
 const initialState = {
   articles: [],
   total: 0,
-  article: {},
 };
 
 const reducer = (state = initialState, action) => {

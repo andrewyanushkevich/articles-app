@@ -13,7 +13,8 @@ class NewsView extends Component {
   }
   render() {
     const { location } = this.props;
-    const { article } = this.props.data;
+    const { article } = this.props;
+    const images = article.images ? article.images : [];
     return (
       <section>
         <Article>
@@ -23,13 +24,17 @@ class NewsView extends Component {
           <Body>
             {article.detailedDescription}
             <Images>
-              {article.images ? article.images.map(element => {
-                return <img srcSet={element.url}></img>
-              }): <div></div>}
+              {images.map((element, index) => {
+                return <img srcSet={element.url} key={index}></img>
+              })}
             </Images>
           </Body>
           <div>
-            <Button onClick={this.handleCancel}>Return</Button>
+            <Button 
+              onClick={this.handleCancel}
+            >
+            Return
+            </Button>
           </div>
         </Article>
         <ShareSocialMedia>
@@ -52,13 +57,10 @@ class NewsView extends Component {
 }
 
 NewsView.defaultProps = {
-  data: {
-    article: {
-      title: '',
-      detailedDescription: '',
-      shortDescription: '',
-      images: [],
-    }
+  article: {
+    title: '',
+    detailedDescription: '',
+    shortDescription: '',
   }
 }
 

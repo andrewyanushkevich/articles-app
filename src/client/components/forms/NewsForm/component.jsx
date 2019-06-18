@@ -15,32 +15,42 @@ const SubmitSchema = Yup.object().shape({
   });
 
 class NewsForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: []
+    }
+  }
   handleSubmit = (values, {resetForm}) => {
     const { id, closeForm } = this.props;
+    const { images } = this.state;
     let submit = typeof id === 'undefined' ? this.props.handleAddArticle : this.props.handleEditArticle;
     const article = {
       title: values.title,
       detailedDescription: values.detailedDescription,
       id,
-      images: values.images,
+      images,
     };
     submit(article);
     resetForm({title: '', detailedDescription: '', images: []});
     closeForm();
-  };
-
+  }
+  handleFilesUpload = (event) => {
+    this.setState({
+      images: event.target.files
+    })
+  }
   render() {
     const { title, detailedDescription, formButtonName } = this.props;
     return(
       <Formik
       initialValues={{
         title,
-        detailedDescription,
-        images: []
+        detailedDescription
       }}
       validationSchema={SubmitSchema}
       onSubmit={this.handleSubmit}
-      render={({values, handleSubmit, setFieldValue}) => {
+      render={() => {
         return (
           <Form>
             <Title>
@@ -56,14 +66,21 @@ class NewsForm extends Component {
               <p>
                 Description:
               </p>
-              <Field component="textarea" name={fields.DETAILED_DESCRIPTION_FIELD} />
-              <ErrorMessage name="detailedDescription">
-                {errorMessage => <div>{errorMessage}</div>}
+              <Field 
+                component="textarea" 
+                name={fields.DETAILED_DESCRIPTION_FIELD} />
+              <ErrorMessage 
+                name="detailedDescription">
+                  {errorMessage => <div>{errorMessage}</div>}
               </ErrorMessage>
             </Body>
-            <input name={fields.IMAGES_FIELD} type="file" multiple onChange={(event) => {
-                    setFieldValue(fields.IMAGES_FIELD, event.currentTarget.files);
-                  }} />
+            <Field 
+              name={fields.IMAGES_FIELD}
+              component="input"
+              type="file" 
+              multiple
+              onChange={this.handleFilesUpload}
+            />
             <Submit>
               <button type="submit">
                 {formButtonName}

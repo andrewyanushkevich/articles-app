@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { UPLOAD_FOLDER } from 'client/constants';
+import { UPLOAD_PATH } from 'client/constants';
 
 export function buildErrorResponse(error) {
   return {
@@ -23,7 +23,7 @@ export function errorHandler(err, res, req, next) {
 }
 
 export function checkUploadPath(req, res, next) {
-  fs.exists(`./${UPLOAD_FOLDER}`, (exists) => {
+  fs.exists(`${UPLOAD_PATH}`, (exists) => {
     if (exists) next();
   });
 }
