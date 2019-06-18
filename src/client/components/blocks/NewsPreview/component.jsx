@@ -8,7 +8,9 @@ import ArticleModal from 'client/components/blocks/ArticleModal';
 import WarningModal from 'client/components/blocks/WarningModal';
 import { NEWS_PER_PAGE, NEWS_URL } from 'client/constants';
 
-import { Article, Title, Body, ArticleButtons, ShareSocialMedia } from './styles';
+import {
+  Article, Title, Body, ArticleButtons, ShareSocialMedia,
+} from './styles';
 
 class NewsPreview extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class NewsPreview extends Component {
   handleEntityDeleteClick = () => {
     const { history, location, article } = this.props;
     const url = new URLSearchParams(location.search);
-    const page = url.get("skip") / NEWS_PER_PAGE;
+    const page = url.get('skip') / NEWS_PER_PAGE;
     this.setState({
       showRemovingWarningModal: true,
       page,
@@ -89,34 +91,34 @@ class NewsPreview extends Component {
             <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
             <Button onClick={this.handleEntityEditClick}>Edit</Button>
           </ArticleButtons>
-          <ArticleModal 
-              id={article._id}
-              title={article.title}
-              detailedDescription={article.detailedDescription}
-              visible={showEntityModal}
-              onCancel={this.handleArticleModalDismiss}
+          <ArticleModal
+            id={article._id}
+            title={article.title}
+            detailedDescription={article.detailedDescription}
+            visible={showEntityModal}
+            onCancel={this.handleArticleModalDismiss}
           />
-          <WarningModal 
+          <WarningModal
             visible={showRemovingWarningModal}
             onCancel={this.handleWarningModalDismiss}
             onOk={this.handleWarningModalSubmit}
           />
         </Article>
         <ShareSocialMedia>
-        <VKShareButton
-          url={"https://" + location.pathname}
-          title={article.title}
-          description={article.detailedDescription}
-          image={article.image ? article.image.url: ''}
-        >
-          <VKIcon 
-            round="bool"
-            size="40"
-          />
-          <VKShareCount />
-        </VKShareButton>
-      </ShareSocialMedia>
-    </section>
+          <VKShareButton
+            url={`https://${location.pathname}`}
+            title={article.title}
+            description={article.detailedDescription}
+            image={article.image ? article.image.url : ''}
+          >
+            <VKIcon
+              round="bool"
+              size="40"
+            />
+            <VKShareCount />
+          </VKShareButton>
+        </ShareSocialMedia>
+      </section>
     );
   }
 }
@@ -126,8 +128,8 @@ NewsPreview.propTypes = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     detailedDescription: PropTypes.string.isRequired,
-    shortDescription: PropTypes.string.isRequired
-  }).isRequired
-}
+    shortDescription: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default withRouter(NewsPreview);

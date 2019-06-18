@@ -23,7 +23,7 @@ export function errorHandler(err, res, req, next) {
 }
 
 export function checkUploadPath(req, res, next) {
-  fs.exists(`${UPLOAD_PATH}`, (exists) => {
+  fs.exists(UPLOAD_PATH, (exists) => {
     if (exists) next();
   });
 }

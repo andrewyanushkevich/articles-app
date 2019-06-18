@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "commonjs": true,
         "es6": true,
         "node": true
     },
@@ -9,6 +10,7 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -19,7 +21,8 @@
     "plugins": [
         "react",
         "promise",
-        "jsx-a11y"
+        "jsx-a11y",
+        "prettier"
     ],
     "rules": {
         "indent": ["error", 2],

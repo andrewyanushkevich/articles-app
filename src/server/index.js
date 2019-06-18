@@ -10,7 +10,7 @@ import apiRouter from './router/api/index';
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 
-server.use('/images', express.static(path.join(__dirname, `../${UPLOAD_FOLDER}`)));
+server.use(`/${UPLOAD_FOLDER}`, express.static(path.join(__dirname, `../${UPLOAD_FOLDER}`)));
 
 server.use(`${API_URL}`, apiRouter);
 

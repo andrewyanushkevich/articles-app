@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 import Article from 'server/api/mongo';
-import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_FOLDER, UPLOAD_PATH } from 'client/constants';
+import {
+  SHORT_BODY_LETTERS_LIMIT, UPLOAD_FOLDER, UPLOAD_PATH, DOMAIN_NAME,
+} from 'client/constants';
 
 import {
   buildErrorResponse, buildSuccessResponse, errorHandler, checkUploadPath,
@@ -49,8 +51,10 @@ router.get('/:id', (req, res, next) => {
 router.post('/', upload.array('images', 5), (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
-  const url = `http://localhost:${process.env.PORT}/${UPLOAD_FOLDER}/`;
-  const images = files ? files.map(element => ({ url: url + element.filename, name: element.filename })) : null;
+  const url = `http://${DOMAIN_NAME}/${UPLOAD_FOLDER}/`;
+  const images = files
+    ? files.map(element => ({ url: url + element.filename, name: element.filename }))
+    : null;
   const article = new Article({
     title,
     detailedDescription,

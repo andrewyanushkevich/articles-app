@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {
+  Formik, Field, Form, ErrorMessage,
+} from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
@@ -12,19 +14,20 @@ const SubmitSchema = Yup.object().shape({
     .required('Title is required'),
   detailedDescription: Yup.string()
     .required('Description is required'),
-  });
+});
 
 class NewsForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: []
-    }
+      images: [],
+    };
   }
-  handleSubmit = (values, {resetForm}) => {
-    const { id, closeForm } = this.props;
+
+  handleSubmit = (values, { resetForm }) => {
+    const { id, closeForm, handleAddArticle, handleEditArticle } = this.props;
     const { images } = this.state;
-    let submit = typeof id === 'undefined' ? this.props.handleAddArticle : this.props.handleEditArticle;
+    const submit = id ? handleAddArticle : handleEditArticle;
     const article = {
       title: values.title,
       detailedDescription: values.detailedDescription,
@@ -32,26 +35,31 @@ class NewsForm extends Component {
       images,
     };
     submit(article);
-    resetForm({title: '', detailedDescription: '', images: []});
+    resetForm({ title: '', detailedDescription: '', images: [] });
     closeForm();
   }
+
   handleFilesUpload = (event) => {
     this.setState({
-      images: event.target.files
-    })
+      images: event.target.files,
+    });
   }
+
+  handleErrorMessage = (errorMessage) => {
+    return <div>{errorMessage}</div>;
+  }
+
   render() {
     const { title, detailedDescription, formButtonName } = this.props;
-    return(
+    return (
       <Formik
-      initialValues={{
-        title,
-        detailedDescription
-      }}
-      validationSchema={SubmitSchema}
-      onSubmit={this.handleSubmit}
-      render={() => {
-        return (
+        initialValues={{
+          title,
+          detailedDescription,
+        }}
+        validationSchema={SubmitSchema}
+        onSubmit={this.handleSubmit}
+        render={() => (
           <Form>
             <Title>
               <p>
@@ -59,25 +67,25 @@ class NewsForm extends Component {
               </p>
               <Field component="input" name={fields.TITLE_FIELD} />
               <ErrorMessage name="title">
-                {errorMessage => <div>{errorMessage}</div>}
+                {errorMessage => (errorMessage ? <div>{errorMessage}</div> : null)}
               </ErrorMessage>
             </Title>
             <Body>
               <p>
                 Description:
               </p>
-              <Field 
-                component="textarea" 
-                name={fields.DETAILED_DESCRIPTION_FIELD} />
-              <ErrorMessage 
-                name="detailedDescription">
-                  {errorMessage => <div>{errorMessage}</div>}
+              <Field
+                component="textarea"
+                name={fields.DETAILED_DESCRIPTION_FIELD}
+              />
+              <ErrorMessage name="detailedDescription">
+                {errorMessage => (errorMessage ? <div>{errorMessage}</div> : null)}
               </ErrorMessage>
             </Body>
-            <Field 
+            <Field
               name={fields.IMAGES_FIELD}
               component="input"
-              type="file" 
+              type="file"
               multiple
               onChange={this.handleFilesUpload}
             />
@@ -87,10 +95,9 @@ class NewsForm extends Component {
               </button>
             </Submit>
           </Form>
-        )
-        }}
-        />
-    )
+        )}
+      />
+    );
   }
 }
 
@@ -99,6 +106,6 @@ NewsForm.propTypes = {
   detailedDescription: PropTypes.string,
   handleAddArticle: PropTypes.func,
   handleEditArticle: PropTypes.func,
-}
+};
 
 export default NewsForm;
