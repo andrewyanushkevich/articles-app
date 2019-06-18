@@ -9,7 +9,7 @@ const articleSchema = new Schema({
   shortDescription: String,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
-  image: [{ name: String, url: String }],
+  images: [{ name: String, url: String }],
 });
 
 const Article = model('Article', articleSchema);

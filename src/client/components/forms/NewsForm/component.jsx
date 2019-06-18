@@ -22,9 +22,10 @@ class NewsForm extends Component {
       title: values.title,
       detailedDescription: values.detailedDescription,
       id,
+      images: values.images,
     };
     submit(article);
-    resetForm({title: '', detailedDescription: ''});
+    resetForm({title: '', detailedDescription: '', images: []});
     closeForm();
   };
 
@@ -35,10 +36,11 @@ class NewsForm extends Component {
       initialValues={{
         title,
         detailedDescription,
+        images: []
       }}
       validationSchema={SubmitSchema}
       onSubmit={this.handleSubmit}
-      render={() => {
+      render={({values, handleSubmit, setFieldValue}) => {
         return (
           <Form>
             <Title>
@@ -50,20 +52,23 @@ class NewsForm extends Component {
                 {errorMessage => <div>{errorMessage}</div>}
               </ErrorMessage>
             </Title>
-              <Body>
-                <p>
-                  Description:
-                </p>
-                <Field component="textarea" name={fields.DETAILED_DESCRIPTION_FIELD} />
-                <ErrorMessage name="detailedDescription">
-                  {errorMessage => <div>{errorMessage}</div>}
-                </ErrorMessage>
-              </Body>
-              <Submit>
-                <button type="submit">
-                  {formButtonName}
-                </button>
-              </Submit>
+            <Body>
+              <p>
+                Description:
+              </p>
+              <Field component="textarea" name={fields.DETAILED_DESCRIPTION_FIELD} />
+              <ErrorMessage name="detailedDescription">
+                {errorMessage => <div>{errorMessage}</div>}
+              </ErrorMessage>
+            </Body>
+            <input name={fields.IMAGES_FIELD} type="file" multiple onChange={(event) => {
+                    setFieldValue(fields.IMAGES_FIELD, event.currentTarget.files);
+                  }} />
+            <Submit>
+              <button type="submit">
+                {formButtonName}
+              </button>
+            </Submit>
           </Form>
         )
         }}

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 import Article from 'server/api/mongo';
-import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_PATH } from 'client/constants';
+import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_FOLDER } from 'client/constants';
 
 import {
   buildErrorResponse, buildSuccessResponse, errorHandler, checkUploadPath,
@@ -11,8 +11,17 @@ import {
 
 const router = express.Router();
 
-const upload = multer({ dest: UPLOAD_PATH });
-upload.array('article-image');
+const storage = multer.diskStorage({
+  destination: `./${UPLOAD_FOLDER}`,
+  filename: (req, file, cb) => {
+    const ext = file.originalname
+      .substring(file.originalname
+        .lastIndexOf('.'), file.originalname.length);
+    cb(null, `${Date.now()}.${ext}`);
+  },
+});
+
+const upload = multer({ storage });
 
 router.use(errorHandler);
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -37,12 +46,14 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.post('/', checkUploadPath, (req, res, next) => {
+router.post('/', upload.array('images', 5), (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
-  let image;
+  checkUploadPath();
+  let images;
+  const url = `http://localhost:${process.env.PORT}/${UPLOAD_FOLDER}/`;
   if (typeof files !== 'undefined') {
-    image = files.map(element => ({ url: element.destination, name: element.filename }));
+    images = files.map(element => ({ url: url + element.filename, name: element.filename }));
   }
   const article = new Article({
     title,
@@ -50,14 +61,13 @@ router.post('/', checkUploadPath, (req, res, next) => {
     shortDescription: `${detailedDescription.slice(0, SHORT_BODY_LETTERS_LIMIT)}...`,
     createdAt: new Date(),
     unpdatedAt: new Date(),
-    image,
+    images,
   });
 
   article.save((err, newArticle) => {
     if (err) {
       next(err);
     }
-
     res.status(200).send(buildSuccessResponse(newArticle));
   });
 });

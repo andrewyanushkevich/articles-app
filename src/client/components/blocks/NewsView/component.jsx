@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { VKShareButton, VKIcon, VKShareCount } from 'react-share';
 
-import { Article, Title, Body, ShareSocialMedia } from './styles';
+import { Article, Title, Body, ShareSocialMedia, Images } from './styles';
 
 class NewsView extends Component {
   handleCancel = () => {
@@ -12,8 +12,8 @@ class NewsView extends Component {
     history.goBack();
   }
   render() {
-    const { article } = this.props.data;
     const { location } = this.props;
+    const { article } = this.props.data;
     return (
       <section>
         <Article>
@@ -22,6 +22,11 @@ class NewsView extends Component {
           </Title>
           <Body>
             {article.detailedDescription}
+            <Images>
+              {article.images ? article.images.map(element => {
+                return <img srcSet={element.url}></img>
+              }): <div></div>}
+            </Images>
           </Body>
           <div>
             <Button onClick={this.handleCancel}>Return</Button>
@@ -43,6 +48,17 @@ class NewsView extends Component {
         </ShareSocialMedia>
       </section>
     );
+  }
+}
+
+NewsView.defaultProps = {
+  data: {
+    article: {
+      title: '',
+      detailedDescription: '',
+      shortDescription: '',
+      images: [],
+    }
   }
 }
 
