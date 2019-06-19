@@ -25,3 +25,12 @@ export const ShareSocialMedia = styled.div`
     cursor: pointer;
   };
 `;
+
+export const Images = styled.div`
+  display: flex;
+  flex-direction: column;
+  item-align: center;
+  & > img {
+    margin: 20px;
+  }
+`;

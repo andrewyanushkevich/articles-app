@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import NewsView from './component';
 
 const mapStateToProps = state => ({
-  data: state.data,
+  article: state.data.article,
 });
 
 export default connect(mapStateToProps)(NewsView);

@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
 
 import Article from 'server/api/mongo';
-import { SHORT_BODY_LETTERS_LIMIT, UPLOAD_PATH } from 'client/constants';
+import {
+  SHORT_BODY_LETTERS_LIMIT, UPLOAD_FOLDER, UPLOAD_PATH, DOMAIN_NAME,
+} from 'client/constants';
 
 import {
   buildErrorResponse, buildSuccessResponse, errorHandler, checkUploadPath,
@@ -11,8 +13,17 @@ import {
 
 const router = express.Router();
 
-const upload = multer({ dest: UPLOAD_PATH });
-upload.array('article-image');
+const storage = multer.diskStorage({
+  destination: `${UPLOAD_PATH}`,
+  filename: (req, file, cb) => {
+    const fileExtension = file.originalname
+      .substring(file.originalname
+        .lastIndexOf('.'), file.originalname.length);
+    cb(null, `${Date.now()}.${fileExtension}`);
+  },
+});
+
+const upload = multer({ storage });
 
 router.use(errorHandler);
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -37,27 +48,26 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.post('/', checkUploadPath, (req, res, next) => {
+router.post('/', upload.array('images', 5), (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
-  let image;
-  if (typeof files !== 'undefined') {
-    image = files.map(element => ({ url: element.destination, name: element.filename }));
-  }
+  const url = `http://${DOMAIN_NAME}/${UPLOAD_FOLDER}/`;
+  const images = files
+    ? files.map(element => ({ url: url + element.filename, name: element.filename }))
+    : null;
   const article = new Article({
     title,
     detailedDescription,
     shortDescription: `${detailedDescription.slice(0, SHORT_BODY_LETTERS_LIMIT)}...`,
     createdAt: new Date(),
     unpdatedAt: new Date(),
-    image,
+    images,
   });
 
   article.save((err, newArticle) => {
     if (err) {
       next(err);
     }
-
     res.status(200).send(buildSuccessResponse(newArticle));
   });
 });

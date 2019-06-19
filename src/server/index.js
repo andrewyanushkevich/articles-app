@@ -1,13 +1,16 @@
 import React from 'react';
 import express from 'express';
+import path from 'path';
 import { renderToString } from 'react-dom/server';
 
-import { API_URL } from 'client/constants';
+import { API_URL, UPLOAD_FOLDER } from 'client/constants';
 
 import apiRouter from './router/api/index';
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
+
+server.use(`/${UPLOAD_FOLDER}`, express.static(path.join(__dirname, `../${UPLOAD_FOLDER}`)));
 
 server.use(`${API_URL}`, apiRouter);
 

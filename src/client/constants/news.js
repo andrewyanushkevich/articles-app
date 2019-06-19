@@ -8,4 +8,6 @@ export const ARTICLES_URL = '/articles';
 export const ARTICLES_API_URL = `${API_URL}/articles`;
 export const ARTICLE_API_URL = `${API_URL}/article`;
 
+export const UPLOAD_FOLDER = 'images';
 export const UPLOAD_PATH = './images';
+export const DOMAIN_NAME = `localhost:${process.env.PORT}`;
