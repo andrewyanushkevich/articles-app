@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 
 import * as fields from 'client/constants';
 
-import { Title, Body } from './styles';
+import { Title, Body, Input, TextArea } from './styles';
 
 const SubmitSchema = Yup.object().shape({
   title: Yup.string()
@@ -27,7 +27,7 @@ class NewsForm extends Component {
   handleSubmit = (values, { resetForm }) => {
     const { id, closeForm, handleAddArticle, handleEditArticle } = this.props;
     const { images } = this.state;
-    const submit = typeof id === 'undefined' ? handleAddArticle : handleEditArticle;
+    const submit = id ? handleAddArticle : handleEditArticle;
     const article = {
       title: values.title,
       detailedDescription: values.detailedDescription,
@@ -67,8 +67,13 @@ class NewsForm extends Component {
               <p>
                 Title:
               </p>
-              <Field component="input" name={fields.TITLE_FIELD} />
-              <ErrorMessage name="title">
+              <Field
+                name={fields.TITLE_FIELD}
+                render={({ field }) => (
+                  <Input {...field} />
+                )}
+              />
+              <ErrorMessage name={fields.TITLE_FIELD}>
                 {errorMessage => (errorMessage ? <div>{errorMessage}</div> : null)}
               </ErrorMessage>
             </Title>
@@ -77,10 +82,12 @@ class NewsForm extends Component {
                 Description:
               </p>
               <Field
-                component="textarea"
                 name={fields.DETAILED_DESCRIPTION_FIELD}
+                render={( { field } ) => (
+                  <TextArea {...field} name={fields.DETAILED_DESCRIPTION_FIELD} />
+                )}
               />
-              <ErrorMessage name="detailedDescription">
+              <ErrorMessage name={fields.DETAILED_DESCRIPTION_FIELD}>
                 {errorMessage => (errorMessage ? <div>{errorMessage}</div> : null)}
               </ErrorMessage>
             </Body>
