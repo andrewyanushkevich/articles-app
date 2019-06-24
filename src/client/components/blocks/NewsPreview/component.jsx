@@ -78,47 +78,45 @@ class NewsPreview extends Component {
     const { showEntityModal, showRemovingWarningModal } = this.state;
     const { article } = this.props;
     return (
-      <section>
-        <Article>
-          <Title>
-            {article.title}
-          </Title>
-          <Body>
-            {article.shortDescription}
-          </Body>
-          <ArticleButtons>
-            <Button onClick={this.handleEntityViewClick}>View</Button>
-            <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
-            <Button onClick={this.handleEntityEditClick}>Edit</Button>
-          </ArticleButtons>
-          <ArticleModal
-            id={article._id}
-            title={article.title}
-            detailedDescription={article.detailedDescription}
-            visible={showEntityModal}
-            onCancel={this.handleArticleModalDismiss}
-          />
-          <WarningModal
-            visible={showRemovingWarningModal}
-            onCancel={this.handleWarningModalDismiss}
-            onOk={this.handleWarningModalSubmit}
-          />
-        </Article>
+      <Article>
+        {article.images.length === 0 ? null : <img srcSet={article.images[0].url} alt="Article" /> }
+        <Title>
+          {article.title}
+        </Title>
+        <Body>
+          {article.shortDescription}
+        </Body>
+        <ArticleButtons>
+          <Button onClick={this.handleEntityViewClick}>View</Button>
+          <Button onClick={this.handleEntityDeleteClick}>Delete</Button>
+          <Button onClick={this.handleEntityEditClick}>Edit</Button>
+        </ArticleButtons>
+        <ArticleModal
+          id={article._id}
+          title={article.title}
+          detailedDescription={article.detailedDescription}
+          visible={showEntityModal}
+          onCancel={this.handleArticleModalDismiss}
+        />
+        <WarningModal
+          visible={showRemovingWarningModal}
+          onCancel={this.handleWarningModalDismiss}
+          onOk={this.handleWarningModalSubmit}
+        />
         <ShareSocialMedia>
           <VKShareButton
             url={`https://${location.pathname}`}
             title={article.title}
             description={article.detailedDescription}
             image={article.image ? article.image.url : ''}
-          >
-            <VKIcon
-              round="bool"
-              size="40"
-            />
-            <VKShareCount />
-          </VKShareButton>
+          />
+          <VKIcon
+            round="bool"
+            size="40"
+          />
+          <VKShareCount />
         </ShareSocialMedia>
-      </section>
+      </Article>
     );
   }
 }

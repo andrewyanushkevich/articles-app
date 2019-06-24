@@ -52,9 +52,9 @@ router.post('/', upload.array('images', 5), (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
   const url = `http://${DOMAIN_NAME}/${UPLOAD_FOLDER}/`;
-  const images = files
-    ? files.map(element => ({ url: url + element.filename, name: element.filename }))
-    : null;
+  const images = files === []
+    ? []
+    : files.map(element => ({ url: url + element.filename, name: element.filename }));
   const article = new Article({
     title,
     detailedDescription,
@@ -79,9 +79,7 @@ router.put('/:id', (req, res, next) => {
   }
 
   const { title, detailedDescription } = req.body;
-  const shortDescription = detailedDescription
-    .split('.', SHORT_BODY_LETTERS_LIMIT)
-    .reduce((result, element) => `${result + element}.`);
+  const shortDescription = `${detailedDescription.slice(0, SHORT_BODY_LETTERS_LIMIT)}...`;
   Article.findByIdAndUpdate(id,
     {
       title, detailedDescription, shortDescription, updated_at: new Date(),

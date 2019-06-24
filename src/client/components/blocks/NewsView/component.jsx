@@ -30,9 +30,7 @@ class NewsView extends Component {
               {images.map(item => <img srcSet={item.url} key={item.name} alt="Article" />)}
             </Images>
           </Body>
-          <div>
-            <Button onClick={this.handleCancel}>Return</Button>
-          </div>
+          <Button onClick={this.handleCancel}>Return</Button>
         </Article>
         <ShareSocialMedia>
           <VKShareButton
@@ -40,13 +38,12 @@ class NewsView extends Component {
             title={article.title}
             description={article.detailedDescription}
             image={article.image ? article.image.url : ''}
-          >
-            <VKIcon
-              round="bool"
-              size="40"
-            />
-            <VKShareCount />
-          </VKShareButton>
+          />
+          <VKIcon
+            round="bool"
+            size="40"
+          />
+          <VKShareCount />
         </ShareSocialMedia>
       </section>
     );

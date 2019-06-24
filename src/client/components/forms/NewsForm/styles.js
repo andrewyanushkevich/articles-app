@@ -15,7 +15,3 @@ export const Body = styled.div`
   flex-direction: column;
   flex-basis: 100%;
 `;
-
-export const Submit = styled.div`
-  text-align: right;
-`;

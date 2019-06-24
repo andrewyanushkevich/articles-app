@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 
 import * as fields from 'client/constants';
 
-import { Title, Body, Submit } from './styles';
+import { Title, Body } from './styles';
 
 const SubmitSchema = Yup.object().shape({
   title: Yup.string()
@@ -27,7 +27,7 @@ class NewsForm extends Component {
   handleSubmit = (values, { resetForm }) => {
     const { id, closeForm, handleAddArticle, handleEditArticle } = this.props;
     const { images } = this.state;
-    const submit = id ? handleAddArticle : handleEditArticle;
+    const submit = typeof id === 'undefined' ? handleAddArticle : handleEditArticle;
     const article = {
       title: values.title,
       detailedDescription: values.detailedDescription,
@@ -35,7 +35,9 @@ class NewsForm extends Component {
       images,
     };
     submit(article);
-    resetForm({ title: '', detailedDescription: '', images: [] });
+    if (typeof id === 'undefined') {
+      resetForm({ title: '', detailedDescription: '', images: [] });
+    }
     closeForm();
   }
 
@@ -50,7 +52,7 @@ class NewsForm extends Component {
   }
 
   render() {
-    const { title, detailedDescription, formButtonName } = this.props;
+    const { title, detailedDescription } = this.props;
     return (
       <Formik
         initialValues={{
@@ -60,7 +62,7 @@ class NewsForm extends Component {
         validationSchema={SubmitSchema}
         onSubmit={this.handleSubmit}
         render={() => (
-          <Form>
+          <Form id="newsForm">
             <Title>
               <p>
                 Title:
@@ -89,11 +91,6 @@ class NewsForm extends Component {
               multiple
               onChange={this.handleFilesUpload}
             />
-            <Submit>
-              <button type="submit">
-                {formButtonName}
-              </button>
-            </Submit>
           </Form>
         )}
       />

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { List, Pagination, Button } from 'antd';
+import { List, Button } from 'antd';
 import PropTypes from 'prop-types';
 
 import NewsPreview from 'client/components/blocks/NewsPreview';
 import ArticleModal from 'client/components/blocks/ArticleModal';
 import { NEWS_URL, NEWS_PER_PAGE } from 'client/constants';
 
-import { ArticleList } from './styles';
+import { ArticleList, StyledPagination } from './styles';
 
 class NewsList extends Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class NewsList extends Component {
           visible={showEntityModal}
           onCancel={this.handleRemovingArticleModal}
         />
-        <Pagination total={total} onChange={handlePageChange} />
+        <StyledPagination total={total} onChange={handlePageChange} />
       </ArticleList>
     );
   }

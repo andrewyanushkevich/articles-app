@@ -1,24 +1,32 @@
 import styled from 'styled-components';
 
+import { SPACING_UNIT, FONT_SIZE } from 'client/constants';
+
 export const Article = styled.article`
-  border: 1px solid black;
   width: 50%;
+  display: flex;
   margin: auto;
+  flex-direction: column;
+  align-items: center;
+  & > Button {
+    align-self: flex-start;
+    margin: 20px 0px;
+  };
 `;
 
 export const Title = styled.h2`
-  border-bottom: 1px solid black;
-  text-align: center;
-  padding: 20px;
+  text-align: left;
+  display: flex;
+  font-size: ${FONT_SIZE}em;
+  margin-bottom: ${SPACING_UNIT}px;
 `;
 
 export const Body = styled.p`
-  border-bottom: 1px solid black;
-  padding: 20px;
+  margin-bottom: ${SPACING_UNIT}px;
 `;
 
 export const ShareSocialMedia = styled.div`
-  margin: 10px auto;
+  margin: ${SPACING_UNIT}px auto;
   text-align: center;
   width: 5%;
   &:hover {
@@ -31,6 +39,6 @@ export const Images = styled.div`
   flex-direction: column;
   item-align: center;
   & > img {
-    margin: 20px;
-  }
+    margin-top: ${SPACING_UNIT}px;
+  };
 `;
