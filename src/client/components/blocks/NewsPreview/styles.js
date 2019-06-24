@@ -24,6 +24,7 @@ export const Title = styled.h2`
 `;
 
 export const Body = styled.p`
+  margin-bottom: ${SPACING_UNIT * 2}px;
 `;
 
 export const ArticleButtons = styled.div`
