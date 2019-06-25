@@ -5,7 +5,7 @@ import { SPACING_UNIT } from 'client/constants';
 export const Title = styled.div`
   display: flex;
   flex-direction: column;
-  margin: ${SPACING_UNIT}px 0px;
+  margin: ${props => props.theme.spacingUnit}px 0px;
   box-sizing: border-box;
   flex-basis: 100%;
   & > p {
@@ -16,7 +16,7 @@ export const Title = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  margin: ${SPACING_UNIT}px 0px;
+  margin: ${props => props.theme.spacingUnit}px 0px;
   box-sizing: border-box;
   flex-direction: column;
   flex-basis: 100%;
@@ -26,12 +26,8 @@ export const Body = styled.div`
   }
 `;
 
-export const FieldSet = styled.fieldset`
-  margin: ${SPACING_UNIT / 2}px 0px;
-`;
-
 export const Select = styled.select`
-  margin: ${SPACING_UNIT / 2}px 0px;
+  margin: ${props => props.theme.spacingUnit / 2}px 0px;
   border: 1px solid black;
 `;
 
@@ -51,7 +47,7 @@ export const Radio = styled.input.attrs(props => ({
   value: props.value,
 }))`
   display: block;
-  margin: ${SPACING_UNIT / 2}px 0px;
+  margin: ${props => props.theme.spacingUnit / 2}px 0px;
 `;
 
 export const CheckBox = styled.input.attrs(props => ({
@@ -60,7 +56,7 @@ export const CheckBox = styled.input.attrs(props => ({
   value: props.value,
 }))`
   display: block;
-  margin: ${SPACING_UNIT / 2}px 0px;
+  margin: ${props => props.theme.spacingUnit / 2}px 0px;
 `;
 
 export const TextArea = styled.textarea`

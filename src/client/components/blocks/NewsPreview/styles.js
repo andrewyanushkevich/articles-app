@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
-import { SPACING_UNIT, FONT_SIZE } from 'client/constants';
-
 export const Article = styled.article`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: ${SPACING_UNIT * 2}px 0px;
+  margin: ${props => props.theme.spacingUnit * 2}px 0px;
   & > img {
     width: 100%;
     height: auto;
@@ -17,25 +15,25 @@ export const Article = styled.article`
 export const Title = styled.h2`
   text-align: left;
   display: flex;
-  font-size: ${FONT_SIZE}em;
+  font-size: ${props => props.theme.fontSize}em;
   @media only screen and (max-width: 600px) {
-    font-size: ${FONT_SIZE / 2}em;
+    font-size: ${props => props.theme.fontSize / 2}em;
   }
 `;
 
 export const Body = styled.p`
-  margin-bottom: ${SPACING_UNIT * 2}px;
+  margin-bottom: ${props => props.theme.spacingUnit * 2}px;
 `;
 
 export const ArticleButtons = styled.div`
   align-self: flex-start;
   > Button {
-    margin-right: ${SPACING_UNIT}px;
+    margin-right: ${props => props.theme.spacingUnit}px;
   }
 `;
 
 export const ShareSocialMedia = styled.div`
-  margin: ${SPACING_UNIT}px auto;
+  margin: ${props => props.theme.spacingUnit}px auto;
   width: 5%;
   text-align: center;
   &:hover {

@@ -27,7 +27,7 @@ class NewsForm extends Component {
   handleSubmit = (values, { resetForm }) => {
     const { id, closeForm, handleAddArticle, handleEditArticle } = this.props;
     const { images } = this.state;
-    const submit = id ? handleAddArticle : handleEditArticle;
+    const submit = id ? handleEditArticle : handleAddArticle;
     const article = {
       title: values.title,
       detailedDescription: values.detailedDescription,

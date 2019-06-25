@@ -52,7 +52,7 @@ router.post('/', upload.array('images', 5), (req, res, next) => {
   const { title, detailedDescription } = req.body;
   const { files } = req;
   const url = `http://${DOMAIN_NAME}/${UPLOAD_FOLDER}/`;
-  const images = files === []
+  const images = files.length === 0
     ? []
     : files.map(element => ({ url: url + element.filename, name: element.filename }));
   const article = new Article({

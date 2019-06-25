@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { SPACING_UNIT, FONT_SIZE } from 'client/constants';
-
 export const Article = styled.article`
   width: 50%;
   display: flex;
@@ -10,23 +8,23 @@ export const Article = styled.article`
   align-items: center;
   & > Button {
     align-self: flex-start;
-    margin: 20px 0px;
+    margin: ${props => props.theme.spacingUnit}px 0px;
   };
 `;
 
 export const Title = styled.h2`
   text-align: left;
   display: flex;
-  font-size: ${FONT_SIZE}em;
-  margin-bottom: ${SPACING_UNIT}px;
+  font-size: ${props => props.theme.fontSize}em;
+  margin-bottom: ${props => props.theme.spacingUnit}px;
 `;
 
 export const Body = styled.p`
-  margin-bottom: ${SPACING_UNIT * 2}px;
+  margin-bottom:${props => props.theme.spacingUnit * 2}px;
 `;
 
 export const ShareSocialMedia = styled.div`
-  margin: ${SPACING_UNIT}px auto;
+  margin: ${props => props.theme.spacingUnit}px auto;
   text-align: center;
   width: 5%;
   &:hover {
@@ -39,6 +37,6 @@ export const Images = styled.div`
   flex-direction: column;
   item-align: center;
   & > img {
-    margin-top: ${SPACING_UNIT}px;
+    margin-top: ${props => props.theme.spacingUnit}px;
   };
 `;

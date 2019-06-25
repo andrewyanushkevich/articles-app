@@ -10,6 +10,7 @@ const ArticleModal = (props) => {
     <Modal
       visible={visible}
       onCancel={onCancel}
+      destroyOnClose
       footer={[
         <Button key="back" onClick={onCancel}>
         Cancel
