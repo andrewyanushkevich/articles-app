@@ -1,24 +1,30 @@
 import styled from 'styled-components';
 
 export const Article = styled.article`
-  border: 1px solid black;
   width: 50%;
+  display: flex;
   margin: auto;
+  flex-direction: column;
+  align-items: center;
+  & > Button {
+    align-self: flex-start;
+    margin: ${props => props.theme.spacingUnit}px 0px;
+  };
 `;
 
 export const Title = styled.h2`
-  border-bottom: 1px solid black;
-  text-align: center;
-  padding: 20px;
+  text-align: left;
+  display: flex;
+  font-size: ${props => props.theme.fontSize}em;
+  margin-bottom: ${props => props.theme.spacingUnit}px;
 `;
 
 export const Body = styled.p`
-  border-bottom: 1px solid black;
-  padding: 20px;
+  margin-bottom:${props => props.theme.spacingUnit * 2}px;
 `;
 
 export const ShareSocialMedia = styled.div`
-  margin: 10px auto;
+  margin: ${props => props.theme.spacingUnit}px auto;
   text-align: center;
   width: 5%;
   &:hover {
@@ -31,6 +37,6 @@ export const Images = styled.div`
   flex-direction: column;
   item-align: center;
   & > img {
-    margin: 20px;
-  }
+    margin-top: ${props => props.theme.spacingUnit}px;
+  };
 `;
