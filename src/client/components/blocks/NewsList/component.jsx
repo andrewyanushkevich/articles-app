@@ -39,14 +39,14 @@ class NewsList extends Component {
 
   handleEntityViewClick = (e) => {
     const { history, handleGetArticle } = this.props;
-    const { id } = e.target;
+    const { id } = e.target.dataset;
     handleGetArticle(id);
     history.push(`${NEWS_URL}/view/${id}`);
   }
 
   handleEntityEditClick = (e) => {
     const { history } = this.props;
-    const { id } = e.target;
+    const { id } = e.target.dataset;
     this.setState({
       showEntityModal: true,
       id,
@@ -58,7 +58,7 @@ class NewsList extends Component {
     const { history, location } = this.props;
     const url = new URLSearchParams(location.search);
     const page = url.get('skip') / NEWS_PER_PAGE;
-    const { id } = e.target;
+    const { id } = e.target.dataset;
     this.setState({
       showRemovingWarningModal: true,
       page,
@@ -76,7 +76,7 @@ class NewsList extends Component {
     history.goBack();
   }
 
-  handleWarningModalSubmit = (e) => {
+  handleWarningModalSubmit = () => {
     const { page, id } = this.state;
     const { handleDeleteArticle, history } = this.props;
     this.setState({
@@ -123,6 +123,7 @@ class NewsList extends Component {
           <ArticleModal
             visible={showEntityModal}
             onCancel={this.handleRemovingArticleModal}
+            id={id}
             title={article.title}
             detailedDescription={article.detailedDescription}
           />

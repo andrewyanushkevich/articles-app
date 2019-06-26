@@ -39,9 +39,9 @@ class NewsPreview extends Component {
             {article.shortDescription}
           </Body>
           <ArticleButtons>
-            <Button onClick={handleEntityViewClick} id={article._id}>View</Button>
-            <Button onClick={handleEntityDeleteClick} id={article._id}>Delete</Button>
-            <Button onClick={handleEntityEditClick} id={article._id}>Edit</Button>
+            <Button onClick={handleEntityViewClick} data-id={article._id}>View</Button>
+            <Button onClick={handleEntityDeleteClick} data-id={article._id}>Delete</Button>
+            <Button onClick={handleEntityEditClick} data-id={article._id}>Edit</Button>
           </ArticleButtons>
           <ShareSocialMedia>
             <VKShareButton
